@@ -164,7 +164,7 @@ figure(diagram('arquitectura'),'Figura 1. Componentes realmente desplegados. La 
 p('Una EC2 t3.medium con Amazon Linux 2023 ejecuta Nginx y Docker Compose. Los contenedores incluyen API/interfaz, PostgreSQL 17, RabbitMQ 4, publicador y worker. La API escucha solo en localhost:8000 del host. Los puertos de base de datos y broker no se publican a Internet. La infraestructura tiene etiquetas exclusivas Project=ep3-preflop y un grupo de seguridad propio con HTTP para ACME y HTTPS.')
 p('SageMaker aloja una imagen de inferencia PyTorch CPU publicada en ECR. El contenedor expone /ping y /invocations. Su endpoint ep3-preflop usa ml.m5.large y la variante main. S3 conserva artefactos y datos con bloqueo público y cifrado AES256. La aplicación usa el SDK de AWS y el perfil de instancia del laboratorio para invocar el endpoint, sin claves AWS en el navegador.')
 endpoint_figure()
-p('AIaaS separa la capacidad de inferencia del servidor web. SageMaker facilita endpoint, métricas y escalado administrado, aunque cobra por el tiempo provisionado. Alojar la misma red en EC2 reduciría componentes y puede convenir para este volumen bajo, pero obligaría a operar su escalado y disponibilidad. Aquí SageMaker también responde al requisito explícito de la evaluación [1].')
+p('AIaaS separa la capacidad de inferencia del servidor web. SageMaker facilita endpoint, métricas y escalado administrado, aunque cobra por el tiempo provisionado (Amazon Web Services, s.f.-c). Alojar la misma red en EC2 reduciría componentes y puede convenir para este volumen bajo, pero obligaría a operar su escalado y disponibilidad. Aquí SageMaker también responde al requisito explícito de la evaluación.')
 p('El diseño de una sola EC2 limita disponibilidad y escalabilidad del backend. El rol LabRole pertenece al laboratorio y tiene permisos más amplios que un rol de producción mínimo. El proyecto no cambió políticas IAM ni recursos de las otras aplicaciones. Una evolución empresarial separaría base de datos y broker, añadiría alta disponibilidad y restringiría IAM por recurso.')
 
 page('5 Interfaz e interpretación de resultados')
@@ -180,7 +180,7 @@ p('Si SageMaker falla o excede el timeout, la API responde 503 y la interfaz mue
 page('6 Contrato REST y comunicación distribuida')
 figure(diagram('secuencia'),'Figura 4. Secuencia de una solicitud. La respuesta no espera a que el worker termine las estadísticas.')
 table(['Método y ruta','Contrato'],[['POST /v1/auth/token','Formulario OAuth2. Devuelve JWT de 30 minutos.'],['GET /v1/catalog','Condiciones, seis escenarios y secuencias admitidas.'],['POST /v1/analyses','Cartas, escenario y acciones. 201 con inferencia real y referencia.'],['GET /v1/analyses/{id}','Análisis del usuario autenticado. 404 si no es suyo.'],['GET /v1/comparison','Seis predicciones para la misma mano.'],['GET /v1/dashboard','Historial y estadísticas del usuario.'],['GET /docs y /openapi.json','Swagger interactivo y esquema REST.'],['GET /health/live y /health/ready','Proceso y disponibilidad de dependencias.']], [6.1,11.3])
-p('Análisis y evento pendiente se guardan dentro de la misma transacción PostgreSQL. El publicador busca eventos sin publicar y usa publisher confirms en una cola durable. Solo marca publicado después de la confirmación del broker. Si el proceso cae entre publicar y confirmar la transacción, puede reenviar el mismo evento. Esa entrega al menos una vez es deliberada [3].')
+p('Análisis y evento pendiente se guardan dentro de la misma transacción PostgreSQL. El publicador busca eventos sin publicar y usa publisher confirms en una cola durable. Solo marca publicado después de la confirmación del broker. Si el proceso cae entre publicar y confirmar la transacción, puede reenviar el mismo evento. Esa entrega al menos una vez es deliberada (Broadcom, s.f.).')
 p('El consumidor utiliza event_id como clave única de procesamiento y confirma el mensaje después del commit. Una reentrega no incrementa dos veces las estadísticas. Se limita a tres intentos ante errores de procesamiento y se deriva el fallo a una cola durable de descarte. Las conexiones se restablecen tras fallos. Los tests prueban idempotencia y persistencia del outbox; la verificación cloud confirmó el consumo real de los tres ejercicios.')
 
 page('7 Seguridad y operación')
@@ -228,7 +228,7 @@ p('El escalado administrado configura mínimo 1, máximo 2 y objetivo de 60 invo
 h('Optimización medida')
 p('Un microbenchmark local de 100 ejecuciones comparó cargar pesos por petición con mantener el modelo precargado, usando la misma mano AKo desde BTN. La media bajó de 1,348 ms a 0,086 ms, equivalente a 15,67 veces. El p95 bajó de 1,494 ms a 0,098 ms. SageMaker reutiliza el modelo al iniciar el contenedor. La medición es CPU local y no representa una mejora demostrada en latencia de red cloud.')
 h('Presupuesto operativo')
-p('La tarifa verificada para ml.m5.large de hosting en us-east-1 es USD 0,115/h y EC2 t3.medium USD 0,0418/h, sin asumir Free Tier. La reserva de 8 h EC2, 10 horas-instancia ML, IPv4, almacenamiento y servicios menores suma aproximadamente USD 2,58, antes de contingencia y de posibles impuestos. El objetivo máximo es USD 5. No es una factura ni un límite automático de AWS [2].')
+p('La tarifa verificada para ml.m5.large de hosting en us-east-1 es USD 0,115/h y EC2 t3.medium USD 0,0418/h, sin asumir Free Tier (Amazon Web Services, s.f.-a, s.f.-b). La reserva de 8 h EC2, 10 horas-instancia ML, IPv4, almacenamiento y servicios menores suma aproximadamente USD 2,58, antes de contingencia y de posibles impuestos. El objetivo máximo es USD 5. No es una factura ni un límite automático de AWS.')
 p('Un endpoint provisionado cobra mientras existe, aunque no reciba consultas. Detener EC2 conserva cargos de EBS e IPv4 y no detiene SageMaker. Mantener todo activo durante el fin de semana excedería el presupuesto. La operación exige ventanas acotadas y una retirada o pausa autorizada exclusivamente de recursos EP3, preservando datos y los proyectos ajenos. La aplicación de una sola EC2 no ofrece alta disponibilidad.')
 
 page('10 Entrega accesos y referencias')
@@ -239,12 +239,15 @@ h('Limitaciones y evolución')
 p('El catálogo cerrado facilita explicar y validar el recorrido. Ampliarlo requiere definir nuevos datos y secuencias, entrenar y reevaluar el modelo. Para una academia real se necesita validar los rangos con especialistas, medir resultados educativos, obtener consentimiento para datos reales, gestionar roles y usuarios, reforzar IAM, cifrar los enlaces internos y distribuir la infraestructura. Ninguna de esas extensiones se presenta como implementada.')
 h('Referencias')
 refs=[
-'[1] Amazon Web Services. (s. f.). Deploy models for inference. Amazon SageMaker AI Developer Guide. https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model.html',
-'[2] Amazon Web Services. (2026). Amazon SageMaker AI pricing y Amazon EC2 T3 instances. https://aws.amazon.com/sagemaker/ai/pricing/ ; https://aws.amazon.com/ec2/instance-types/t3/ . Tarifas consultadas el 20 de noviembre de 2026.',
-'[3] Broadcom. (s. f.). Consumer acknowledgements and publisher confirms. RabbitMQ documentation. https://www.rabbitmq.com/docs/confirms',
-'[4] Duoc UC. (2025). Evaluación Parcial 3 Proyecto Integral de Despliegue y Optimización de Sistema IA Empresarial [Pauta de ITY1102]. Material de asignatura proporcionado por el estudiante.'
+('Amazon Web Services. (s.f.-a). ','Amazon EC2 T3 instances.',' Recuperado el 20 de noviembre de 2026, de https://aws.amazon.com/ec2/instance-types/t3/'),
+('Amazon Web Services. (s.f.-b). ','Amazon SageMaker AI pricing.',' Recuperado el 20 de noviembre de 2026, de https://aws.amazon.com/sagemaker/ai/pricing/'),
+('Amazon Web Services. (s.f.-c). ','Deploy models for inference.',' Amazon SageMaker AI Developer Guide. https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model.html'),
+('Broadcom. (s.f.). ','Consumer acknowledgements and publisher confirms.',' RabbitMQ documentation. https://www.rabbitmq.com/docs/confirms'),
+('Duoc UC. (2025). ','Evaluación Parcial 3 Proyecto Integral de Despliegue y Optimización de Sistema IA Empresarial.',' [Pauta de ITY1102]. Material de asignatura.')
 ]
-for ref in refs:p(ref)
+for author,title,tail in refs:
+    para=p('');para.paragraph_format.left_indent=Cm(.5);para.paragraph_format.first_line_indent=Cm(-.5)
+    para.add_run(author);para.add_run(title).italic=True;para.add_run(tail)
 h('Declaración de uso de IA')
 p('Se utilizó Codex de OpenAI para apoyar el diseño, generar y revisar código, ejecutar pruebas y preparar documentación y diapositivas. La asistencia se contrastó con la pauta y con resultados ejecutados. Los datos son sintéticos propios y las salidas del modelo se distinguen de la referencia. El estudiante debe revisar el contenido, comprender las decisiones y responder por la entrega académica.')
 for para in doc.paragraphs:

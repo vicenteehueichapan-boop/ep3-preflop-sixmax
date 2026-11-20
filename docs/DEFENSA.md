@@ -84,6 +84,8 @@ Si falla AWS: explicar el error real y comprobar health, laboratorio y endpoint.
 
 **¿Es escalable toda la aplicación?** El endpoint sí tiene política 1–2 y escaló en la prueba. El backend y la base de datos siguen en una sola EC2. No afirmar escalabilidad global ni alta disponibilidad.
 
+**¿Por qué el objetivo de 60 invocaciones por instancia y minuto?** Es un umbral conservador para observar el mecanismo de escalado dentro de la demo acotada. No representa la capacidad máxima medida del modelo ni un punto de saturación. Ajustarlo para producción exige probar más niveles de concurrencia y relacionar costo, latencia y utilización. El máximo de dos instancias protege el presupuesto del laboratorio.
+
 **¿Cómo detener el gasto?** Detener EC2 no detiene el endpoint SageMaker. Se necesita autorización para retirar únicamente el endpoint EP3 y detener su instancia. Se conservan modelo, configuración, S3 y datos. EBS e IPv4 pueden seguir cobrando. No tocar recursos de otros proyectos.
 
 **¿Cómo sabes que no se simuló AWS?** Las respuestas incluyen source=sagemaker y versión, la configuración production rechaza backends locales y la evidencia registra el endpoint, CloudWatch y el historial de escalado. Las pruebas cloud consumieron el endpoint real.

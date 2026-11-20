@@ -1,0 +1,137 @@
+{
+  "base_url": "http://127.0.0.1:8000",
+  "environment": "AWS real",
+  "tests": [
+    {
+      "case": "health_live",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "cloud_dependencies",
+      "passed": true,
+      "details": {
+        "status": "ready",
+        "model_backend": "sagemaker",
+        "events": "rabbitmq"
+      }
+    },
+    {
+      "case": "anonymous_rejected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "bad_password",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "login",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "sagemaker_enabled",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "rabbitmq_enabled",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "catalog_6_spots",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "analysis_fold",
+      "passed": true,
+      "details": 201
+    },
+    {
+      "case": "real_prediction_fold",
+      "passed": true,
+      "details": {
+        "action": "fold",
+        "version": "preflop-5b0e112653",
+        "inference_ms": 111.749
+      }
+    },
+    {
+      "case": "history_fold",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "analysis_raise",
+      "passed": true,
+      "details": 201
+    },
+    {
+      "case": "real_prediction_raise",
+      "passed": true,
+      "details": {
+        "action": "raise",
+        "version": "preflop-5b0e112653",
+        "inference_ms": 13.933
+      }
+    },
+    {
+      "case": "history_raise",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "analysis_call",
+      "passed": true,
+      "details": 201
+    },
+    {
+      "case": "real_prediction_call",
+      "passed": true,
+      "details": {
+        "action": "call",
+        "version": "preflop-5b0e112653",
+        "inference_ms": 8.382
+      }
+    },
+    {
+      "case": "history_call",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "duplicate_cards",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "out_of_turn",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "comparison",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "rabbitmq_consumed",
+      "passed": true,
+      "details": {
+        "total": 6,
+        "processed": 6
+      }
+    },
+    {
+      "case": "openapi",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "passed": 22,
+  "total": 22
+}
