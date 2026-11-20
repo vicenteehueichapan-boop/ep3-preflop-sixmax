@@ -4,7 +4,7 @@ from pathlib import Path
 
 root=Path(__file__).resolve().parents[1]
 folders=['app','data','scripts','infra','tests','frontend','artifacts']
-files=[root/name for name in ['README.md','.gitignore','.dockerignore','Dockerfile','compose.yaml','requirements.txt','requirements-api.txt','pytest.ini','locustfile.py']]
+files=[root/name for name in ['README.md','.gitignore','.dockerignore','Dockerfile','Dockerfile.load','compose.yaml','requirements.txt','requirements-api.txt','pytest.ini','locustfile.py']]
 for folder in folders:
     for p in (root/folder).rglob('*'):
         rel=p.relative_to(root).as_posix()
