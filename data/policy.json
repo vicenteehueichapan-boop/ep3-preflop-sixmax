@@ -1,0 +1,14 @@
+{
+  "version": "didactica-1.0.0",
+  "provenance": "Politica didactica propia acordada para EP3. No proviene de un solver ni acredita GTO.",
+  "game": {"players": 6, "stack_bb": 100, "sb_bb": 0.5, "bb_bb": 1, "ante_bb": 0, "rake": "No modelado; politica didactica, no solucion de equilibrio"},
+  "scenarios": {
+    "open_UTG": {"hero": "UTG", "label": "Apertura UTG", "raise_to_bb": 2.5, "raise": "77+, ATs+, KQs, AQo+", "call": ""},
+    "open_HJ": {"hero": "HJ", "label": "Apertura HJ", "raise_to_bb": 2.5, "raise": "66+, A9s+, KJs+, QJs, AJo+, KQo", "call": ""},
+    "open_CO": {"hero": "CO", "label": "Apertura CO", "raise_to_bb": 2.5, "raise": "44+, A5s+, KTs+, QTs+, JTs, T9s, ATo+, KJo+", "call": ""},
+    "open_BTN": {"hero": "BTN", "label": "Apertura BTN", "raise_to_bb": 2.5, "raise": "22+, A2s+, K8s+, Q9s+, J9s+, T8s+, 98s, A8o+, KTo+, QTo+, JTo", "call": ""},
+    "open_SB": {"hero": "SB", "label": "Apertura SB", "raise_to_bb": 3.0, "raise": "22+, A2s+, K7s+, Q9s+, J9s+, T8s+, 98s, A7o+, KTo+, QTo+, JTo", "call": ""},
+    "bb_vs_btn": {"hero": "BB", "villain": "BTN", "label": "BB frente a BTN", "raise_to_bb": 10.0, "raise": "TT+, AQs+, AKo", "call": "22-99, A2s-AJs, K9s+, Q9s+, J9s+, T8s+, 98s, 87s, ATo-AQo, KTo+, QTo+, JTo"}
+  }
+}
+

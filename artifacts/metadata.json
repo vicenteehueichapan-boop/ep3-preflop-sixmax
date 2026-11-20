@@ -1,0 +1,30 @@
+{
+  "version": "preflop-5b0e112653",
+  "weights_sha256": "5b0e112653ae636547b1929925c2137949a5c0ec6b5c9dc2a358efe4104744ca",
+  "policy_version": "didactica-1.0.0",
+  "policy_sha256": "506d05d78d9a0ae870bdc2396ccfaa005ceba21f862b4def40329a0fa7b6dc56",
+  "framework": "PyTorch 2.9.1+cpu",
+  "architecture": [
+    10,
+    32,
+    16,
+    3
+  ],
+  "seed": 42,
+  "learning_rate": 0.001,
+  "optimizer": "Adam",
+  "batch_size": 32,
+  "max_epochs": 400,
+  "epochs_executed": 270,
+  "selected_epoch": 210,
+  "validation_macro_f1": 0.9335255066387141,
+  "training_seconds": 5.4775242999894544,
+  "created_at": "2026-11-20T21:11:28.318202+00:00",
+  "dataset_records": 1014,
+  "split_counts": {
+    "train": 708,
+    "validation": 150,
+    "test": 156
+  },
+  "purpose": "Imitacion supervisada de politica didactica propia. No GTO."
+}

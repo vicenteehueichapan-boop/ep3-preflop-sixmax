@@ -1,0 +1,16 @@
+fastapi>=0.115,<1
+uvicorn>=0.34,<1
+sqlalchemy>=2.0,<3
+psycopg[binary]>=3.2,<4
+PyJWT>=2.10,<3
+argon2-cffi>=23.1,<26
+python-multipart>=0.0.20,<1
+pika>=1.3,<2
+boto3>=1.35,<2
+numpy>=2.1,<3
+httpx>=0.28,<1
+pytest>=8.3,<10
+scikit-learn>=1.6,<2
+locust>=2.32,<3
+python-dotenv>=1,<2
+

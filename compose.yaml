@@ -1,0 +1,56 @@
+name: ep3-preflop
+services:
+  api:
+    image: ep3-preflop-api:1
+    build: {context: ., target: api}
+    env_file: .env
+    restart: unless-stopped
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+    logging: &cloudlogs
+      driver: awslogs
+      options:
+        awslogs-region: ${AWS_DEFAULT_REGION}
+        awslogs-group: /ep3-preflop/app
+        awslogs-create-group: "false"
+        awslogs-stream: api
+  publisher:
+    image: ep3-preflop-api:1
+    env_file: .env
+    command: ["python", "-m", "app.events", "publisher"]
+    restart: unless-stopped
+    depends_on: {api: {condition: service_healthy}}
+    logging:
+      driver: awslogs
+      options: {awslogs-region: "${AWS_DEFAULT_REGION}", awslogs-group: /ep3-preflop/app, awslogs-stream: publisher}
+  worker:
+    image: ep3-preflop-api:1
+    env_file: .env
+    command: ["python", "-m", "app.events", "worker"]
+    restart: unless-stopped
+    depends_on: {api: {condition: service_healthy}}
+    logging:
+      driver: awslogs
+      options: {awslogs-region: "${AWS_DEFAULT_REGION}", awslogs-group: /ep3-preflop/app, awslogs-stream: worker}
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: preflop
+      POSTGRES_USER: preflop
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    restart: unless-stopped
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U preflop"], interval: 5s, timeout: 3s, retries: 20}
+  rabbitmq:
+    image: rabbitmq:4-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: preflop
+      RABBITMQ_DEFAULT_PASS: ${RABBIT_PASSWORD}
+    volumes: ["rabbitdata:/var/lib/rabbitmq"]
+    restart: unless-stopped
+    healthcheck: {test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"], interval: 10s, timeout: 5s, retries: 20}
+volumes:
+  pgdata:
+  rabbitdata:

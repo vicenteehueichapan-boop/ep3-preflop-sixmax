@@ -1,0 +1,16 @@
+.venv/
+node_modules/
+__pycache__/
+.pytest_cache/
+.env
+*.pem
+*.key
+runtime/
+tmp/
+*.db
+*.db-*
+infra/state*.json
+frontend/dist/
+artifacts/model.pt
+output/playwright/*.log
+
