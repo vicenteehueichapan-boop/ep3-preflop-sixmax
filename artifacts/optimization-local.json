@@ -1,0 +1,22 @@
+{
+  "environment": "local CPU",
+  "scenario": "open_BTN",
+  "hand": "AKo",
+  "model_version": "preflop-5b0e112653",
+  "load_per_request": {
+    "samples": 100,
+    "p50_ms": 1.3219999964348972,
+    "p95_ms": 1.4942999696359038,
+    "p99_ms": 1.5782999689690769,
+    "mean_ms": 1.3483479991555214
+  },
+  "preloaded_model": {
+    "samples": 100,
+    "p50_ms": 0.08450000314041972,
+    "p95_ms": 0.09769998723641038,
+    "p99_ms": 0.10710000060498714,
+    "mean_ms": 0.08607200172264129
+  },
+  "mean_speedup": 15.665349616248529,
+  "limitation": "Microbenchmark de inferencia local; no es latencia de red ni de AWS."
+}
