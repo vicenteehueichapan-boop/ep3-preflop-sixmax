@@ -1,0 +1,147 @@
+{
+  "info": {
+    "name": "EP3 Preflop Six Max",
+    "description": "Demo académica real en AWS. Introducir la contraseña solo en variable privada del cliente. No exportar ni sincronizar variables rellenadas. Las recomendaciones imitan una política didáctica, no GTO.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://54.162.150.183"
+    },
+    {
+      "key": "demoUsername",
+      "value": "alumno"
+    },
+    {
+      "key": "demoPassword",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1 Sesión privada",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/v1/auth/token",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "username",
+              "value": "{{demoUsername}}"
+            },
+            {
+              "key": "password",
+              "value": "{{demoPassword}}"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Inicio de sesión\", () => pm.response.to.have.status(200));",
+              "if(pm.response.code === 200) pm.collectionVariables.set(\"token\", pm.response.json().access_token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "2 Catálogo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/v1/catalog"
+      }
+    },
+    {
+      "name": "Fold UTG",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/v1/analyses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"scenario\": \"open_UTG\",\n  \"cards\": [\n    \"7s\",\n    \"2h\"\n  ],\n  \"actions\": []\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Raise BTN",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/v1/analyses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"scenario\": \"open_BTN\",\n  \"cards\": [\n    \"As\",\n    \"Kh\"\n  ],\n  \"actions\": [\n    {\n      \"position\": \"UTG\",\n      \"action\": \"fold\"\n    },\n    {\n      \"position\": \"HJ\",\n      \"action\": \"fold\"\n    },\n    {\n      \"position\": \"CO\",\n      \"action\": \"fold\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Call BB",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/v1/analyses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"scenario\": \"bb_vs_btn\",\n  \"cards\": [\n    \"9s\",\n    \"9h\"\n  ],\n  \"actions\": [\n    {\n      \"position\": \"UTG\",\n      \"action\": \"fold\"\n    },\n    {\n      \"position\": \"HJ\",\n      \"action\": \"fold\"\n    },\n    {\n      \"position\": \"CO\",\n      \"action\": \"fold\"\n    },\n    {\n      \"position\": \"BTN\",\n      \"action\": \"raise\",\n      \"raise_to_bb\": 2.5\n    },\n    {\n      \"position\": \"SB\",\n      \"action\": \"fold\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Historial y eventos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/v1/dashboard"
+      }
+    },
+    {
+      "name": "Comparación entre posiciones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/v1/comparison?card1=As&card2=5s"
+      }
+    }
+  ]
+}

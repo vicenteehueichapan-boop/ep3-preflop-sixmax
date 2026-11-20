@@ -1,0 +1,465 @@
+{
+  "collected_at": "2026-11-20T22:01:29.106645+00:00",
+  "region": "us-east-1",
+  "endpoint": "ep3-preflop",
+  "status": "InService",
+  "created_at": "2026-11-20T21:33:22.781000+00:00",
+  "variants": [
+    {
+      "VariantName": "main",
+      "DeployedImages": [
+        {
+          "SpecifiedImage": "790823822731.dkr.ecr.us-east-1.amazonaws.com/ep3-preflop:1",
+          "ResolvedImage": "790823822731.dkr.ecr.us-east-1.amazonaws.com/ep3-preflop@sha256:f88f26170e17f54e90701e3462ccd5572447b51bfd28c95051b7577337d8f64a",
+          "ResolutionTime": "2026-11-20 21:55:50.168000+00:00"
+        }
+      ],
+      "CurrentWeight": 1.0,
+      "DesiredWeight": 1.0,
+      "CurrentInstanceCount": 2,
+      "DesiredInstanceCount": 2
+    }
+  ],
+  "metrics": {
+    "Invocations": [
+      {
+        "Timestamp": "2026-11-20 21:36:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:37:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:38:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:39:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:40:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:41:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:42:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:43:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:44:00+00:00",
+        "Sum": 9.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:46:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:47:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:48:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:49:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:50:00+00:00",
+        "Sum": 115.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:51:00+00:00",
+        "Sum": 233.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:52:00+00:00",
+        "Sum": 234.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:53:00+00:00",
+        "Sum": 249.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:54:00+00:00",
+        "Sum": 258.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:55:00+00:00",
+        "Sum": 125.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:56:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:57:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:58:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:59:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 22:00:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      }
+    ],
+    "Invocation4XXErrors": [
+      {
+        "Timestamp": "2026-11-20 21:44:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:50:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:51:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:52:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:53:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:54:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:55:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      }
+    ],
+    "Invocation5XXErrors": [
+      {
+        "Timestamp": "2026-11-20 21:44:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:50:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:51:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:52:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:53:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:54:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-20 21:55:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      }
+    ],
+    "ModelLatency": [
+      {
+        "Timestamp": "2026-11-20 21:44:00+00:00",
+        "Average": 4003.4444444444443,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:50:00+00:00",
+        "Average": 3033.7478260869566,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:51:00+00:00",
+        "Average": 2795.68669527897,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:52:00+00:00",
+        "Average": 2452.5555555555557,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:53:00+00:00",
+        "Average": 2320.1887550200804,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:54:00+00:00",
+        "Average": 2231.8062015503874,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:55:00+00:00",
+        "Average": 2219.224,
+        "Unit": "Microseconds"
+      }
+    ],
+    "OverheadLatency": [
+      {
+        "Timestamp": "2026-11-20 21:44:00+00:00",
+        "Average": 14918.0,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:50:00+00:00",
+        "Average": 5994.8,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:51:00+00:00",
+        "Average": 4574.442060085837,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:52:00+00:00",
+        "Average": 4137.363247863248,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:53:00+00:00",
+        "Average": 3927.0321285140562,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:54:00+00:00",
+        "Average": 3988.220930232558,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-20 21:55:00+00:00",
+        "Average": 3396.024,
+        "Unit": "Microseconds"
+      }
+    ]
+  },
+  "load": [
+    {
+      "Type": "POST",
+      "Name": "/v1/analyses",
+      "Request Count": "1213",
+      "Failure Count": "0",
+      "Median Response Time": "21",
+      "Average Response Time": "24.531976767520522",
+      "Min Response Time": "17.94089600002735",
+      "Max Response Time": "424.3675059999532",
+      "Average Content Size": "952.2877164056059",
+      "Requests/s": "4.050156086725373",
+      "Failures/s": "0.0",
+      "50%": "21",
+      "66%": "22",
+      "75%": "23",
+      "80%": "24",
+      "90%": "27",
+      "95%": "35",
+      "98%": "65",
+      "99%": "97",
+      "99.9%": "400",
+      "99.99%": "420",
+      "100%": "420"
+    },
+    {
+      "Type": "POST",
+      "Name": "/v1/auth/token",
+      "Request Count": "5",
+      "Failure Count": "0",
+      "Median Response Time": "160",
+      "Average Response Time": "163.305075199969",
+      "Min Response Time": "151.9195559999389",
+      "Max Response Time": "177.22623000008753",
+      "Average Content Size": "238.0",
+      "Requests/s": "0.016694790134894364",
+      "Failures/s": "0.0",
+      "50%": "160",
+      "66%": "170",
+      "75%": "170",
+      "80%": "180",
+      "90%": "180",
+      "95%": "180",
+      "98%": "180",
+      "99%": "180",
+      "99.9%": "180",
+      "99.99%": "180",
+      "100%": "180"
+    },
+    {
+      "Type": "GET",
+      "Name": "/v1/dashboard",
+      "Request Count": "246",
+      "Failure Count": "0",
+      "Median Response Time": "15",
+      "Average Response Time": "16.99080341057186",
+      "Min Response Time": "9.70566199998757",
+      "Max Response Time": "108.58034400007455",
+      "Average Content Size": "19416.963414634145",
+      "Requests/s": "0.8213836746368027",
+      "Failures/s": "0.0",
+      "50%": "15",
+      "66%": "15",
+      "75%": "16",
+      "80%": "18",
+      "90%": "22",
+      "95%": "26",
+      "98%": "42",
+      "99%": "52",
+      "99.9%": "110",
+      "99.99%": "110",
+      "100%": "110"
+    },
+    {
+      "Type": "",
+      "Name": "Aggregated",
+      "Request Count": "1464",
+      "Failure Count": "0",
+      "Median Response Time": "20",
+      "Average Response Time": "23.738764230876335",
+      "Min Response Time": "9.70566199998757",
+      "Max Response Time": "424.3675059999532",
+      "Average Content Size": "4052.51912568306",
+      "Requests/s": "4.88823455149707",
+      "Failures/s": "0.0",
+      "50%": "20",
+      "66%": "21",
+      "75%": "22",
+      "80%": "23",
+      "90%": "27",
+      "95%": "35",
+      "98%": "67",
+      "99%": "110",
+      "99.9%": "400",
+      "99.99%": "420",
+      "100%": "420"
+    }
+  ],
+  "scalable_targets": [
+    {
+      "ServiceNamespace": "sagemaker",
+      "ResourceId": "endpoint/ep3-preflop/variant/main",
+      "ScalableDimension": "sagemaker:variant:DesiredInstanceCount",
+      "MinCapacity": 1,
+      "MaxCapacity": 2,
+      "RoleARN": "arn:aws:iam::790823822731:role/aws-service-role/sagemaker.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_SageMakerEndpoint",
+      "CreationTime": "2026-11-20 21:35:54.945000+00:00",
+      "SuspendedState": {
+        "DynamicScalingInSuspended": false,
+        "DynamicScalingOutSuspended": false,
+        "ScheduledScalingSuspended": false
+      },
+      "ScalableTargetARN": "arn:aws:application-autoscaling:us-east-1:790823822731:scalable-target/056m5906c58ec24d4833b3569acddd228eab"
+    }
+  ],
+  "scaling_activities": [
+    {
+      "ActivityId": "c96c75b1-ef64-4530-a8b2-49e8416159db",
+      "ServiceNamespace": "sagemaker",
+      "ResourceId": "endpoint/ep3-preflop/variant/main",
+      "ScalableDimension": "sagemaker:variant:DesiredInstanceCount",
+      "Description": "Setting desired instance count to 2.",
+      "Cause": "monitor alarm TargetTracking-endpoint/ep3-preflop/variant/main-AlarmHigh-ac9ac3ed-dbc1-4e1c-a8cd-fa69abb470eb in state ALARM triggered policy ep3-preflop",
+      "StartTime": "2026-11-20 21:55:48.985000+00:00",
+      "EndTime": "2026-11-20 21:58:31.176000+00:00",
+      "StatusCode": "Successful",
+      "StatusMessage": "Successfully set desired instance count to 2. Change successfully fulfilled by sagemaker."
+    }
+  ],
+  "scaling_policies": [
+    {
+      "PolicyARN": "arn:aws:autoscaling:us-east-1:790823822731:scalingPolicy:5906c58e-c24d-4833-b356-9acddd228eab:resource/sagemaker/endpoint/ep3-preflop/variant/main:policyName/ep3-preflop",
+      "PolicyName": "ep3-preflop",
+      "ServiceNamespace": "sagemaker",
+      "ResourceId": "endpoint/ep3-preflop/variant/main",
+      "ScalableDimension": "sagemaker:variant:DesiredInstanceCount",
+      "PolicyType": "TargetTrackingScaling",
+      "TargetTrackingScalingPolicyConfiguration": {
+        "TargetValue": 60.0,
+        "PredefinedMetricSpecification": {
+          "PredefinedMetricType": "SageMakerVariantInvocationsPerInstance"
+        },
+        "ScaleOutCooldown": 60,
+        "ScaleInCooldown": 60
+      },
+      "Alarms": [
+        {
+          "AlarmName": "TargetTracking-endpoint/ep3-preflop/variant/main-AlarmHigh-ac9ac3ed-dbc1-4e1c-a8cd-fa69abb470eb",
+          "AlarmARN": "arn:aws:cloudwatch:us-east-1:790823822731:alarm:TargetTracking-endpoint/ep3-preflop/variant/main-AlarmHigh-ac9ac3ed-dbc1-4e1c-a8cd-fa69abb470eb"
+        },
+        {
+          "AlarmName": "TargetTracking-endpoint/ep3-preflop/variant/main-AlarmLow-915b5e68-9e88-42ca-a753-a32252b80a9c",
+          "AlarmARN": "arn:aws:cloudwatch:us-east-1:790823822731:alarm:TargetTracking-endpoint/ep3-preflop/variant/main-AlarmLow-915b5e68-9e88-42ca-a753-a32252b80a9c"
+        }
+      ],
+      "CreationTime": "2026-11-20 21:35:54.991000+00:00"
+    }
+  ],
+  "log_groups": [
+    {
+      "logGroupName": "/ep3-preflop/app",
+      "storedBytes": 0,
+      "retentionInDays": 7
+    },
+    {
+      "logGroupName": "/aws/sagemaker/Endpoints/ep3-preflop",
+      "storedBytes": 0,
+      "retentionInDays": 7
+    }
+  ]
+}
