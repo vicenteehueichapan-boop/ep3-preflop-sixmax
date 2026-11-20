@@ -5,7 +5,7 @@ import zlib
 from pathlib import Path
 
 root=Path(__file__).resolve().parents[1]/'runtime/evidence'
-names=['cloud-smoke.json','cloud-metrics.json','load-cloud_stats.csv','load-cloud_failures.csv']
+names=['cloud-smoke.json','cloud-metrics.json','recovery-check.json','load-cloud_stats.csv','load-cloud_failures.csv']
 files={name:(root/name).read_text(encoding='utf-8') for name in names if (root/name).exists()}
 print('EP3_EVIDENCE_BEGIN')
 print(base64.b64encode(zlib.compress(json.dumps(files).encode())).decode())
