@@ -20,6 +20,7 @@ services:
     image: ep3-preflop-api:1
     env_file: .env
     command: ["python", "-m", "app.events", "publisher"]
+    healthcheck: {disable: true}
     restart: unless-stopped
     depends_on: {api: {condition: service_healthy}}
     logging:
@@ -29,6 +30,7 @@ services:
     image: ep3-preflop-api:1
     env_file: .env
     command: ["python", "-m", "app.events", "worker"]
+    healthcheck: {disable: true}
     restart: unless-stopped
     depends_on: {api: {condition: service_healthy}}
     logging:

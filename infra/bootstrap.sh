@@ -80,7 +80,7 @@ server {
 NGINX
 nginx -t
 systemctl reload nginx
-printf '%s\n' 'systemctl reload nginx' > /etc/letsencrypt/renewal-hooks/deploy/nginx.sh
+printf '%s\n' '#!/bin/sh' 'systemctl reload nginx' > /etc/letsencrypt/renewal-hooks/deploy/nginx.sh
 chmod +x /etc/letsencrypt/renewal-hooks/deploy/nginx.sh
-printf '0 */6 * * * root /opt/ep3-preflop/tools/bin/certbot renew --quiet\n' > /etc/cron.d/ep3-cert-renew
+bash infra/renewal.sh
 echo "EP3_READY https://__PUBLIC_IP__"
