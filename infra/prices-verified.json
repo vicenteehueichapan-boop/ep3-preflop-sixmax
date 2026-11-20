@@ -1,0 +1,11 @@
+{
+  "region": "us-east-1",
+  "verified_at": "2026-11-20T19:11:15Z",
+  "sagemaker_catalog_version": "20261120191115",
+  "ec2": 0.0418,
+  "sagemaker": 0.115,
+  "ec2_source": "https://aws.amazon.com/ec2/instance-types/t3/",
+  "sagemaker_source": "https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonSageMaker/current/us-east-1/index.json",
+  "sagemaker_sku": "4EXVMHA8CSKDZ59D",
+  "estimated_total_usd": 2.584
+}

@@ -30,11 +30,20 @@ def load():
 
 
 def prices():
+    verified=ROOT/'infra/prices-verified.json'
+    if verified.exists():
+        rates=json.loads(verified.read_text())
+        if rates['region']!=REGION:
+            raise RuntimeError('La tarifa verificada corresponde a otra region; no crear recursos.')
+        age=datetime.now(timezone.utc)-datetime.fromisoformat(rates['verified_at'].replace('Z','+00:00'))
+        if age.days>7 or rates['estimated_total_usd']>4:
+            raise RuntimeError('Revisar precios y presupuesto antes de desplegar.')
+        return rates
     pricing=boto3.client('pricing',region_name='us-east-1')
     rates={}
     searches=[('ec2','AmazonEC2','t3.medium'),('sagemaker','AmazonSageMaker','ml.m5.large')]
     for key,service,instance in searches:
-        filters=[{'Type':'TERM_MATCH','Field':'regionCode','Value':REGION},{'Type':'TERM_MATCH','Field':'instanceType','Value':instance}]
+        filters=[{'Type':'TERM_MATCH','Field':'regionCode','Value':REGION},{'Type':'TERM_MATCH','Field':'instanceType','Value':instance if key=='ec2' else instance+'-Hosting'}]
         if key=='ec2':
             filters += [{'Type':'TERM_MATCH','Field':k,'Value':v} for k,v in [('operatingSystem','Linux'),('tenancy','Shared'),('preInstalledSw','NA'),('capacitystatus','Used')]]
         items=pricing.get_products(ServiceCode=service,Filters=filters,MaxResults=100)
