@@ -28,7 +28,7 @@ values={'APP_ENV':'production','MODEL_BACKEND':'sagemaker','EVENT_TRANSPORT':'ra
  'DATABASE_URL':'postgresql+psycopg://preflop:'+db+'@postgres/preflop',
  'DB_PASSWORD':db,'RABBIT_PASSWORD':rabbit,'RABBIT_URL':'amqp://preflop:'+rabbit+'@rabbitmq:5672/%2F',
  'JWT_SECRET':secrets.token_hex(32),'DEMO_USERNAME':'alumno','DEMO_PASSWORD':secrets.token_urlsafe(16),
- 'SAGEMAKER_ENDPOINT':'ep3-preflop','AWS_DEFAULT_REGION':os.environ['AWS_DEFAULT_REGION'],'RATE_LIMIT_PER_MINUTE':'1200'}
+ 'SAGEMAKER_ENDPOINT':'ep3-preflop','AWS_DEFAULT_REGION':os.environ['AWS_DEFAULT_REGION'],'RATE_LIMIT_PER_MINUTE':'120'}
 with open('.env','x') as f:
  for k,v in values.items(): f.write(k+'='+v+'\n')
 os.chmod('.env',0o600)

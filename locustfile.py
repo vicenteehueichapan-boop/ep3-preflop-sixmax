@@ -1,5 +1,8 @@
 import os
+from itertools import cycle
 from locust import HttpUser, between, task
+
+users = cycle(range(1,6))
 
 
 class Student(HttpUser):
@@ -7,7 +10,10 @@ class Student(HttpUser):
 
     def on_start(self):
         password = os.environ['DEMO_PASSWORD']
-        response = self.client.post('/v1/auth/token', data={'username':os.getenv('DEMO_USERNAME','alumno'),'password':password})
+        username = os.getenv('DEMO_USERNAME','alumno')
+        if os.getenv('LOAD_USER_PREFIX'):
+            username = os.environ['LOAD_USER_PREFIX'] + str(next(users)).zfill(2)
+        response = self.client.post('/v1/auth/token', data={'username':username,'password':password})
         response.raise_for_status()
         self.client.headers['Authorization']='Bearer '+response.json()['access_token']
 
