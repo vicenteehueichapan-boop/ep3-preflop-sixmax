@@ -116,7 +116,7 @@ sudo /opt/ep3-preflop/tools/bin/python scripts/collect_cloud.py
 
 La recuperación final aprobó 28/28 controles tras recrear los contenedores. Se conserva una corrida previa de 27/28 en `recovery-before-readiness-fix.json`: falló solo readiness. Se corrigió para aceptar Updating si el endpoint conserva capacidad activa. No se modificó la ruta de inferencia usada durante la carga.
 
-La exportación pública de `cloud-metrics.json` conserva métricas, tiempos, capacidad y resultados de carga. Omite identificadores de cuenta, roles, ARN, imágenes ECR y recursos. El archivo de trabajo local mantiene el detalle original para revisión privada. `scripts/export_source.py` aplica esta separación antes de publicar o empaquetar el código.
+La copia pública de `cloud-metrics.json` conserva métricas, tiempos, capacidad y resultados de carga. Omite identificadores de cuenta, roles, ARN, imágenes ECR y recursos. El archivo de trabajo privado mantiene el detalle original. El índice técnico de accesos y evidencias está en [docs/ACCESOS_Y_EVIDENCIAS.md](docs/ACCESOS_Y_EVIDENCIAS.md).
 
 `artifacts/optimization-local.json` compara 100 inferencias con carga por solicitud y 100 con modelo reutilizado: 1,348 ms frente a 0,086 ms de media. Es un microbenchmark CPU local, no una reducción de latencia cloud demostrada. CloudWatch y el historial de escalado están en `artifacts/cloud-metrics.json`.
 
@@ -149,9 +149,9 @@ Rangos sintéticos, seis escenarios y resultados de clasificación. No validado 
 
 ## Fuentes y uso de IA
 
-- [Pauta ITY1102 EP3](docs/CUMPLIMIENTO.md), entregada al estudiante por Duoc UC (2025).
+- Duoc UC. (2025). *Evaluación Parcial 3: Proyecto Integral de Despliegue y Optimización de Sistema IA Empresarial*. Material de asignatura ITY1102.
 - [SageMaker: despliegue](https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model.html) y [auto scaling](https://docs.aws.amazon.com/sagemaker/latest/dg/endpoint-auto-scaling.html).
 - [RabbitMQ: confirms y acknowledgements](https://www.rabbitmq.com/docs/confirms).
 - [Eliminar endpoint para detener cargos](https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints-delete-resources.html).
 
-Codex apoyó diseño, programación, pruebas y documentación. El estudiante debe revisar los entregables, entender los límites y defender las decisiones. Los resultados reportados provienen de ejecuciones reales y se distingue cada entorno.
+Se utilizó Codex de OpenAI para apoyar diseño, programación, pruebas y documentación. La responsabilidad académica corresponde al estudiante. Los resultados reportados provienen de ejecuciones reales y se distingue cada entorno.
