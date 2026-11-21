@@ -12,7 +12,6 @@ COPY requirements-api.txt ./
 RUN pip install --no-cache-dir -r requirements-api.txt && useradd --uid 10001 --create-home app
 COPY app ./app
 COPY scripts/smoke_cloud.py ./scripts/smoke_cloud.py
-COPY scripts/seed_load.py ./scripts/seed_load.py
 COPY data/policy.json ./data/policy.json
 COPY artifacts/metadata.json ./artifacts/metadata.json
 COPY --from=web /web/dist ./frontend/dist

@@ -1,4 +1,4 @@
-"""Prueba HTTP real. Ejecutar dentro del contenedor API, sin imprimir credenciales."""
+"""Prueba HTTP real por HTTPS y sesión invitada. No necesita credenciales privadas."""
 import json
 import os
 import time
@@ -16,7 +16,7 @@ def main():
         check('health_live',c.get('/health/live').status_code==200)
         ready=c.get('/health/ready');check('cloud_dependencies',ready.status_code==200,ready.json())
         check('anonymous_rejected',c.get('/v1/dashboard').status_code==401)
-        check('bad_password',c.post('/v1/auth/token',data={'username':os.environ['DEMO_USERNAME'],'password':'not-correct'}).status_code==401)
+        check('bad_password',c.post('/v1/auth/token',data={'username':os.getenv('DEMO_USERNAME','alumno'),'password':'not-correct'}).status_code==401)
         opened=c.post('/v1/demo/session')
         check('guest_session_without_password',opened.status_code==200)
         opened.raise_for_status()
@@ -52,12 +52,14 @@ def main():
             if stats['processed_events']==stats['total']:break
             time.sleep(1)
         check('rabbitmq_consumed',stats['processed_events']==stats['total'],{'total':stats['total'],'processed':stats['processed_events']})
-        check('openapi', '/v1/analyses' in c.get('/openapi.json').json()['paths'])
+        schema=c.get('/openapi.json').json()
+        check('openapi', '/v1/analyses' in schema['paths'])
         with httpx.Client(base_url=base,timeout=30,trust_env=False) as other:
             other.post('/v1/demo/session').raise_for_status()
             check('guest_history_isolated',other.get('/v1/dashboard').json()['total']==0)
             check('guest_cannot_read_other_analysis',other.get('/v1/analyses/'+analysis_ids[0]).status_code==404)
-    report={'base_url':base,'environment':'AWS real','tests':results,'passed':sum(r['passed'] for r in results),'total':len(results)}
+    report={'base_url':base,'environment':'AWS real','api_version':schema['info']['version'],'access_flow':'automatic_guest',
+        'tests':results,'passed':sum(r['passed'] for r in results),'total':len(results)}
     out=Path(os.getenv('EVIDENCE_DIR','/tmp/ep3-evidence'));out.mkdir(parents=True,exist_ok=True)
     (out/'cloud-smoke.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report,indent=2))
