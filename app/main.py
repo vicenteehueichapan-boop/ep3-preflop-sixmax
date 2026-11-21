@@ -76,7 +76,7 @@ def create_app(settings=None, predictor=None):
     async def lifespan(_):
         yield
         engine.dispose()
-    app = FastAPI(title="Preflop Six Max API", version="1.1.0", lifespan=lifespan,
+    app = FastAPI(title="Preflop Six Max API", version="1.1.1", lifespan=lifespan,
         description="Entrenador de politica didactica. No GTO. Sesion invitada automatica, OAuth2 para clientes REST e historial aislado.")
     app.state.sessions, app.state.engine = sessions, engine
     app.state.predictor, app.state.settings = predictor, settings
@@ -257,7 +257,9 @@ def create_app(settings=None, predictor=None):
             if settings.model_backend == "sagemaker":
                 import boto3
                 response = boto3.client("sagemaker", region_name=settings.aws_region).describe_endpoint(EndpointName=settings.endpoint_name)
-                if response["EndpointStatus"] != "InService":
+                serving = response["EndpointStatus"] in {"InService", "Updating"}
+                capacity = any(v.get("CurrentInstanceCount", 0) > 0 for v in response.get("ProductionVariants", []))
+                if not serving or not capacity:
                     raise RuntimeError("Modelo no disponible")
             if settings.event_transport == "rabbitmq":
                 import pika

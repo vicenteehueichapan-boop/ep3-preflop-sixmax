@@ -249,3 +249,20 @@ def test_guest_has_no_password_login(client):
     client.post('/v1/demo/session')
     identity=client.get('/v1/catalog').json()['username']
     assert client.post('/v1/auth/token',data={'username':identity,'password':'anything'}).status_code==401
+
+
+def test_readiness_during_scaling_requires_serving_capacity(client,monkeypatch):
+    import boto3
+    class Endpoint:
+        count=1
+        status='Updating'
+        def describe_endpoint(self,**_):
+            return {'EndpointStatus':self.status,'ProductionVariants':[{'CurrentInstanceCount':self.count}]}
+    endpoint=Endpoint()
+    monkeypatch.setattr(boto3,'client',lambda *args,**kwargs:endpoint)
+    client.app.state.settings.model_backend='sagemaker'
+    assert client.get('/health/ready').status_code==200
+    endpoint.count=0
+    assert client.get('/health/ready').status_code==503
+    endpoint.count=1;endpoint.status='Failed'
+    assert client.get('/health/ready').status_code==503
