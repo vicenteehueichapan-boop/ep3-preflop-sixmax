@@ -7,13 +7,14 @@ from collections import defaultdict, deque
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import jwt
 from argon2 import PasswordHasher
 from argon2.exceptions import VerificationError
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import APIKeyCookie, OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import func, select, text
@@ -25,7 +26,7 @@ from app.policy import ROOT, ACTIONS, expected_actions, policy, reference, state
 
 log = logging.getLogger("preflop")
 hasher = PasswordHasher()
-oauth = OAuth2PasswordBearer(tokenUrl="/v1/auth/token")
+oauth = OAuth2PasswordBearer(tokenUrl="/v1/auth/token", auto_error=False)
 
 
 class ActionInput(BaseModel):
@@ -75,8 +76,8 @@ def create_app(settings=None, predictor=None):
     async def lifespan(_):
         yield
         engine.dispose()
-    app = FastAPI(title="Preflop Six Max API", version="1.0.0", lifespan=lifespan,
-        description="Entrenador de politica didactica. No GTO. OAuth2, inferencia ML e historial por usuario.")
+    app = FastAPI(title="Preflop Six Max API", version="1.1.0", lifespan=lifespan,
+        description="Entrenador de politica didactica. No GTO. Sesion invitada automatica, OAuth2 para clientes REST e historial aislado.")
     app.state.sessions, app.state.engine = sessions, engine
     app.state.predictor, app.state.settings = predictor, settings
     app.state.limiter = limiter
@@ -94,17 +95,58 @@ def create_app(settings=None, predictor=None):
         log.info(json.dumps({"request_id": request.state.request_id, "path": request.url.path, "status": response.status_code, "latency_ms": round(elapsed, 3)}))
         return response
 
-    def current_user(token=Depends(oauth)):
+    cookie_name = "__Host-preflop_demo" if settings.environment == "production" else "preflop_demo"
+    cookie_auth = APIKeyCookie(name=cookie_name, auto_error=False)
+
+    def same_origin(request):
+        origin = request.headers.get("origin")
+        if origin and (urlsplit(origin).netloc != request.headers.get("host") or urlsplit(origin).scheme not in {"http", "https"}):
+            raise HTTPException(403, "Origen de solicitud no admitido.")
+        if request.headers.get("sec-fetch-site") == "cross-site":
+            raise HTTPException(403, "Origen de solicitud no admitido.")
+
+    def identity(token, guest_only=False):
         try:
             payload = jwt.decode(token, settings.jwt_secret, algorithms=["HS256"], audience="preflop", issuer="preflop-api", options={"require": ["exp", "sub", "iss", "aud"]})
             username = payload["sub"]
+            if guest_only and (payload.get("kind") != "guest" or not username.startswith("guest-")):
+                raise ValueError("Sesion no invitada")
             with sessions() as session:
                 if not session.get(User, username):
                     raise ValueError("Usuario inexistente")
-            limiter.check("api:" + username, settings.rate_limit)
             return username
         except (jwt.PyJWTError, ValueError, KeyError) as exc:
             raise HTTPException(401, "Sesion invalida o vencida.", headers={"WWW-Authenticate": "Bearer"}) from exc
+
+    def current_user(request: Request, token=Depends(oauth), cookie_token=Depends(cookie_auth)):
+        if not token and not cookie_token:
+            raise HTTPException(401, "Sesion requerida.", headers={"WWW-Authenticate": "Bearer"})
+        if not token and request.method not in {"GET", "HEAD", "OPTIONS"}:
+            same_origin(request)
+        username = identity(token or cookie_token, guest_only=not bool(token))
+        limiter.check("api:" + username, settings.rate_limit)
+        return username
+
+    @app.post("/v1/demo/session")
+    def guest_session(request: Request):
+        same_origin(request)
+        limiter.check("guest-session:" + (request.client.host if request.client else "unknown"), 20)
+        username = None
+        existing = request.cookies.get(cookie_name)
+        if existing:
+            try:
+                username = identity(existing, guest_only=True)
+            except HTTPException:
+                pass
+        if not username:
+            username = "guest-" + str(uuid.uuid4())
+            with sessions.begin() as session:
+                session.add(User(id=username, password_hash=app.state.dummy_hash))
+        token = jwt.encode({"sub": username, "kind": "guest", "exp": datetime.now(timezone.utc) + timedelta(minutes=30),
+            "iss": "preflop-api", "aud": "preflop"}, settings.jwt_secret, algorithm="HS256")
+        response = JSONResponse({"session_type": "guest", "expires_in": 1800})
+        response.set_cookie(cookie_name, token, max_age=1800, httponly=True, secure=settings.environment == "production", samesite="strict", path="/")
+        return response
 
     @app.post("/v1/auth/token")
     def login(request: Request, form: OAuth2PasswordRequestForm = Depends()):
@@ -116,7 +158,7 @@ def create_app(settings=None, predictor=None):
                 valid = hasher.verify(user.password_hash if user else app.state.dummy_hash, form.password)
             except VerificationError:
                 valid = False
-            if not user or not valid:
+            if not user or user.id.startswith("guest-") or not valid:
                 raise HTTPException(401, "Usuario o clave incorrectos.", headers={"WWW-Authenticate": "Bearer"})
         expiry = datetime.now(timezone.utc) + timedelta(minutes=30)
         token = jwt.encode({"sub": user.id, "exp": expiry, "iss": "preflop-api", "aud": "preflop"}, settings.jwt_secret, algorithm="HS256")

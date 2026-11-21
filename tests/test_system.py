@@ -193,3 +193,59 @@ def test_openapi_and_health(client):
 def test_production_rejects_local_substitutions():
     with pytest.raises(ValueError):
         Settings(database_url='sqlite:///x.db',jwt_secret='a'*40,demo_password='b'*16,environment='production').validate()
+
+
+def test_guest_session_opens_table_without_credentials(client):
+    response=client.post('/v1/demo/session')
+    assert response.status_code==200
+    assert response.json()=={'session_type':'guest','expires_in':1800}
+    cookie=response.headers['set-cookie'].lower()
+    assert 'httponly' in cookie and 'samesite=strict' in cookie and 'max-age=1800' in cookie
+    assert client.get('/v1/catalog').status_code==200
+    result=client.post('/v1/analyses',json=payload())
+    assert result.status_code==201 and result.json()['action']=='raise'
+
+
+def test_guest_reload_reuses_history(client):
+    client.post('/v1/demo/session')
+    identity=client.get('/v1/catalog').json()['username']
+    client.post('/v1/analyses',json=payload())
+    client.post('/v1/demo/session')
+    assert client.get('/v1/catalog').json()['username']==identity
+    assert client.get('/v1/dashboard').json()['total']==1
+
+
+def test_guest_browsers_do_not_share_histories(client):
+    client.post('/v1/demo/session')
+    identity=client.get('/v1/catalog').json()['username']
+    result=client.post('/v1/analyses',json=payload()).json()
+    client.cookies.clear()
+    client.post('/v1/demo/session')
+    assert client.get('/v1/catalog').json()['username']!=identity
+    assert client.get('/v1/dashboard').json()['total']==0
+    assert client.get('/v1/analyses/'+result['id']).status_code==404
+
+
+def test_guest_cookie_rejects_cross_origin_writes(client):
+    assert client.post('/v1/demo/session',headers={'Origin':'https://other.example'}).status_code==403
+    client.post('/v1/demo/session')
+    assert client.post('/v1/analyses',headers={'Origin':'https://other.example'},json=payload()).status_code==403
+    assert client.post('/v1/analyses',headers={'Origin':'http://testserver'},json=payload()).status_code==201
+
+
+def test_guest_tampered_cookie_is_rejected_and_replaced(client):
+    client.cookies.set('preflop_demo','tampered',domain='testserver.local',path='/')
+    assert client.get('/v1/dashboard').status_code==401
+    assert client.post('/v1/demo/session').status_code==200
+    assert client.get('/v1/dashboard').status_code==200
+
+
+def test_guest_session_creation_rate_limit(client):
+    for _ in range(20):assert client.post('/v1/demo/session').status_code==200
+    assert client.post('/v1/demo/session').status_code==429
+
+
+def test_guest_has_no_password_login(client):
+    client.post('/v1/demo/session')
+    identity=client.get('/v1/catalog').json()['username']
+    assert client.post('/v1/auth/token',data={'username':identity,'password':'anything'}).status_code==401
