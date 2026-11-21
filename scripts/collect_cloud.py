@@ -30,6 +30,10 @@ report['scaling_policies']=scale.describe_scaling_policies(ServiceNamespace='sag
 stats=OUT/'load-cloud_stats.csv'
 if stats.exists():
     with stats.open(encoding='utf-8') as f:report['load']=list(csv.DictReader(f))
+    report['load_profile']={
+        'access_flow':'automatic_guest' if any(row['Name']=='/v1/demo/session' for row in report['load']) else 'legacy_oauth2',
+        'host':'https://54.162.150.183' if any(row['Name']=='/v1/demo/session' for row in report['load']) else 'http://127.0.0.1:8000',
+        'users':5,'configured_duration_seconds':300,'csv_modified_at':datetime.fromtimestamp(stats.stat().st_mtime,timezone.utc).isoformat()}
 report['log_groups']=[]
 logs=boto3.client('logs',region_name=REGION)
 for prefix in ['/ep3-preflop/app','/aws/sagemaker/Endpoints/ep3-preflop']:
