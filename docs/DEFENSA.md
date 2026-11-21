@@ -6,7 +6,7 @@ Duración prevista: 11 minutos de exposición y demostración, hasta cuatro minu
 
 - Activar el laboratorio con anticipación y comprobar que el endpoint ep3-preflop está InService. Arrancarlo puede tardar varios minutos.
 - Abrir https://54.162.150.183/ y /docs. Verificar certificado válido sin omitir alertas del navegador.
-- Tener las credenciales demo privadas, sin mostrarlas en el proyector ni pegarlas en chat, diapositivas o GitHub.
+- La URL abre la mesa directamente. No se necesita usuario ni contraseña: el navegador recibe una sesión invitada aislada.
 - Comprobar /health/ready y ejecutar scripts/smoke_cloud.py dentro del contenedor. Confirmar versión preflop-5b0e112653.
 - Abrir el dashboard y dejar Swagger o Postman preparado con una sesión de demostración. La colección no incorpora contraseñas.
 - Disponer de PDF, repositorio y copias de evidencias si cae la conexión. Las capturas son respaldo y no se describen como una demo en vivo.
@@ -34,21 +34,21 @@ Explicar BB como unidad de apuesta, preflop como la fase anterior a las cartas c
 
 ### 4 Demostración  4 minutos
 
-1. Entrar sin mostrar la contraseña. Señalar los seis asientos y las condiciones fijas.
+1. Abrir la URL y mostrar que entra directamente en la mesa, sin login. Señalar los seis asientos y las condiciones fijas.
 2. Elegir apertura BTN, As y Kh. Completar folds UTG/HJ/CO. Explicar que el botón de completar secuencia solo agiliza la entrada de un estado soportado.
 3. Solicitar análisis. Mostrar raise a 2,5 BB, fuente SageMaker, versión, tiempo y referencia separada. “Esta acción vino del modelo. La referencia permite comprobar si coincide.”
 4. Mostrar UTG con 7s/2h para fold y BB contra BTN con 9s/9h para call de 1,5 BB. Si el tiempo es corto, dejar dos ejemplos preparados y hacer uno en vivo.
 5. Abrir historial y métricas. Señalar análisis y eventos procesados. Actualizar si el worker aún no termina.
-6. Abrir Swagger o Postman. Ejecutar GET /v1/catalog autenticado y POST /v1/analyses con el cuerpo de la colección. Mostrar el JSON con source, model_version, request_id y action. No exponer Authorization ni access_token en la pantalla.
+6. Abrir Swagger o Postman. Ejecutar primero POST /v1/demo/session si el cliente no tiene sesión y mantener su cookie jar. Mostrar GET /v1/catalog y POST /v1/analyses con el cuerpo de la colección. Señalar source, model_version, request_id y action sin exponer la cookie.
 7. En SageMaker mostrar ep3-preflop InService y la evidencia del escalado de una a dos instancias. No abrir menús de eliminación ni ajustes durante la defensa.
 
 Si falla AWS: explicar el error real y comprobar health, laboratorio y endpoint. La API responde 503 y no inventa una recomendación. Mostrar evidencia de una ejecución previa solo como respaldo histórico.
 
 ### 5 Pruebas y optimización  1 minuto y 30 segundos
 
-“Ejecuté 26 tests locales de reglas, contratos y seguridad, además de 22 verificaciones cloud reales. Locust generó cinco usuarios por cinco minutos: 1.464 solicitudes, cero fallos y 4,89 solicitudes por segundo. p50/p95/p99 fueron 20/35/110 ms.”
+“Ejecuté 34 tests locales de reglas, contratos y seguridad, además de 28 verificaciones cloud reales. La batería incluye entrada sin contraseña, cookie segura, historiales separados y salud durante escalado con capacidad activa. Locust ejecutó cinco sesiones por cinco minutos: 1.461 solicitudes, cero fallos y 4,90 solicitudes/s. p50/p95/p99 fueron 21/30/54 ms. El informe usa el CSV final, que puede cerrar ligeramente antes del resumen de consola.”
 
-“El generador corrió en la EC2 contra la API local. Incluye el viaje de inferencia a SageMaker y la base de datos, pero no Internet, Nginx ni el navegador. No es la latencia vista por cualquier usuario externo. La política automática terminó un escalado de una a dos instancias.”
+“El generador corrió en la EC2 contra la URL HTTPS publicada. Incluye Nginx, TLS, SageMaker y persistencia. No mide la red de un alumno remoto ni el renderizado del navegador. El historial del endpoint conserva el escalado observado de una a dos instancias.”
 
 “Comparé cargar pesos por petición y reutilizar el modelo precargado con 100 ejecuciones para cada alternativa. La media local bajó de 1,348 a 0,086 ms. Es un microbenchmark CPU que justifica la precarga. No lo presento como una mejora cloud de la misma magnitud.”
 
@@ -80,6 +80,8 @@ Si falla AWS: explicar el error real y comprobar health, laboratorio y endpoint.
 
 **¿Qué pasa con solicitudes ajenas?** Se exige JWT y el análisis debe pertenecer al usuario. La API responde 404 ante un id ajeno para no revelar su existencia. Los límites devuelven 429 y el proveedor fallido devuelve 503.
 
+**¿Cómo hay seguridad si la mesa no pide login?** La demo pública crea una sesión invitada automáticamente. Su cookie HttpOnly/Secure lleva un JWT firmado y la API separa los ejercicios por visitante. Esto identifica una sesión y no acredita la identidad personal del alumno. OAuth2 con contraseña y hash Argon2 sigue disponible para clientes REST con cuenta y sus pruebas. La interfaz no solicita esa contraseña.
+
 **¿Por qué SageMaker y no solo EC2?** Es requisito del encargo y permite desacoplar el ciclo de vida y capacidad de inferencia. Para un modelo tan pequeño y volumen reducido, solo EC2 simplificaría y podría abaratar, a cambio de operar el modelo y su escalado.
 
 **¿Es escalable toda la aplicación?** El endpoint sí tiene política 1–2 y escaló en la prueba. El backend y la base de datos siguen en una sola EC2. No afirmar escalabilidad global ni alta disponibilidad.
@@ -94,4 +96,4 @@ Si falla AWS: explicar el error real y comprobar health, laboratorio y endpoint.
 
 ## Antes de enviar en AVA
 
-Verificar los dos PDFs y el enlace GitHub, el plazo real, los nombres requeridos y la ventana de revisión. Las seis láminas y el informe de diez páginas describen la misma versión. Entregar credenciales por el mecanismo privado que indique el docente. La pauta impresa tiene una inconsistencia entre 60/40 y los pesos de indicadores 50/50: consultar su aplicación sin reinterpretarla.
+Verificar los dos PDFs y el enlace GitHub, el plazo real, los nombres requeridos y la ventana de revisión. Las seis láminas y el informe de diez páginas describen la misma versión. Comprobar que el profesor abre la mesa sin credenciales. La pauta impresa tiene una inconsistencia entre 60/40 y los pesos de indicadores 50/50: consultar su aplicación sin reinterpretarla.

@@ -14,8 +14,8 @@ La implementación sigue el plan aprobado de Preflop Six Max: entrega individual
 | IE6 | 10 % | Comparación AIaaS/autogestión y argumento rendimiento/costo/flexibilidad | Informe pp. 4 y 9, guía de defensa |
 | IE7 | 10 % | REST OpenAPI, JWT, autorización, TLS, rate limit, outbox y RabbitMQ | app/, infra/bootstrap.sh, tests/, cloud-smoke.json |
 | IE8 | 5 % | Arquitectura y secuencia de consumo síncrono/eventos | Informe pp. 4 y 6, diagramas y guía |
-| IE9 | 5 % | Recorrido preparado y sistema cloud operativo | 22 verificaciones cloud y guion de demo. La demostración ante el docente aún debe realizarse |
-| IE10 | 10 % | 26 tests locales, 22 controles cloud, Locust, métricas ML | artifacts/tests-local.xml, cloud-smoke.json, metrics.json, load-cloud_stats.csv |
+| IE9 | 5 % | Mesa de acceso directo, recorrido preparado y sistema cloud operativo | 28 verificaciones cloud y guion de demo. La demostración ante el docente aún debe realizarse |
+| IE10 | 10 % | 34 tests locales, 28 controles cloud, Locust, métricas ML | artifacts/tests-local.xml, cloud-smoke.json, metrics.json, load-cloud_stats.csv |
 | IE11 | 5 % | Particiones agrupadas, baseline y optimización antes/después | scripts/train.py, benchmark.py, optimization-local.json, informe pp. 3 y 9 |
 | IE12 | 5 % | Uso preciso de inferencia, endpoint, macro F1, IAM y eventos | Informe, presentación y guía. Depende también de la exposición del estudiante |
 | IE13 | 10 % | Preguntas de datos, seguridad, fallos, costos, arquitectura y limitaciones | Guía de defensa. El dominio individual se evalúa oralmente y no se afirma como resultado ya obtenido |
@@ -28,9 +28,9 @@ La implementación sigue el plan aprobado de Preflop Six Max: entrega individual
 | Servidor, endpoint y dashboard funcionales | EC2 y SageMaker exclusivos ep3-preflop, URL HTTPS y dashboard autenticado |
 | Comunicación distribuida RabbitMQ/Kafka | RabbitMQ real, cola durable, publisher confirms, ACK después de commit y deduplicación |
 | Swagger/OpenAPI y pruebas de interoperabilidad | /docs, /openapi.json y controles HTTP reales |
-| Autenticación, TLS y rate limiting | JWT/Argon2, certificado público y límite por usuario/IP |
+| Autenticación, TLS y rate limiting | Cookie JWT invitada automática, OAuth2/Argon2 para clientes con cuenta, TLS público y límites por sesión/IP |
 | Diagrama de secuencia | Informe p. 6 y docs/ARQUITECTURA.md |
-| Al menos diez casos de prueba | 26 automatizados y 16 casos resumidos en informe p. 8 |
+| Al menos diez casos de prueba | 34 automatizados y 16 casos resumidos en informe p. 8 |
 | p50/p95/p99, throughput, errores y carga | CSV real de Locust de cinco minutos y artifacts/cloud-metrics.json |
 | Accuracy, precision, recall y F1 | artifacts/metrics.json, matriz de confusión e informe p. 3 |
 | CloudWatch y escalabilidad | Logs JSON de aplicación y métricas/historial real del endpoint |
@@ -38,17 +38,18 @@ La implementación sigue el plan aprobado de Preflop Six Max: entrega individual
 | PDF de diez páginas, APA y declaración de IA | output/entrega/EP3_EquipoIndividual_Hueichapan.pdf |
 | GitHub README, código y Dockerfile | Este repositorio público. Sin .env ni credenciales |
 | Seis láminas PDF, máximo quince minutos y demo | output/entrega/EP3_Presentacion_EquipoIndividual.pdf y guía de defensa |
-| URLs y credenciales para revisión | URLs en README/informe. Credenciales por canal privado, nunca en repositorio |
+| URLs y acceso para revisión | URLs en README/informe. La mesa abre sin credenciales y aísla la sesión de cada visitante |
 
 ## Criterios que deben respetarse al presentar
 
 1. El modelo imita una política sintética y no implementa GTO. No llamar a sus puntuaciones probabilidades de ganar.
 2. El resultado ML y la consulta a rangos de referencia son salidas separadas. Si falla SageMaker, mostrar el 503 y recuperar el servicio.
-3. La carga medida desde localhost en EC2 incluye SageMaker y PostgreSQL, pero excluye Internet, navegador y TLS. El microbenchmark de optimización es local CPU.
+3. La nueva carga usa la URL HTTPS desde EC2 e incluye Nginx/TLS, SageMaker y PostgreSQL. No representa la red de un alumno remoto ni el navegador. El microbenchmark de optimización es local CPU.
 4. Un endpoint activo cobra incluso sin peticiones. Confirmar ventana de entrega/revisión/defensa y evitar disponibilidad continua que exceda USD 5.
 5. No tocar, detener ni eliminar recursos de otros proyectos. El código de despliegue mantiene manifest de instancias previas protegidas.
 6. La modalidad individual, cambio de tema, hora oficial de AVA y ponderaciones deben quedar confirmados por el docente. La pauta indica 60/40, mientras los pesos de los indicadores suman 50/50. No se reinterpreta esa diferencia.
 7. La defensa depende del estudiante: ensayar y revisar el código, las decisiones y los resultados. Preparar material no sustituye demostrar dominio.
+8. La demo es pública: la sesión invitada identifica un navegador y no verifica identidad personal. Mantener esa distinción y explicar el contrato OAuth2 de clientes REST cuando se consulte autenticación.
 
 ## Secuencia de ejecución del plan aprobado
 

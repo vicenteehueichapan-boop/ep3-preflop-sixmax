@@ -2,7 +2,7 @@
 
 Entrenador académico preflop para una academia de póker. Proyecto individual ITY1102 EP3 de Vicente Hueichapan. PyTorch, FastAPI, React, PostgreSQL, RabbitMQ y AWS SageMaker.
 
-**Demo:** https://54.162.150.183/ · **Swagger:** https://54.162.150.183/docs . Requiere laboratorio AWS y cómputo EP3 activos. Acceso demo entregado en privado, sin contraseñas en este repositorio.
+**Demo:** https://54.162.150.183/ · **Swagger:** https://54.162.150.183/docs . Abre directamente en la mesa, sin formulario de login. Requiere laboratorio AWS y cómputo EP3 activos.
 
 El modelo aprende una política didáctica propia, versionada en JSON. No es un solver GTO, no estima probabilidades de ganar ni garantiza rentabilidad. La API obtiene su acción del clasificador real y muestra la referencia por separado.
 
@@ -53,7 +53,7 @@ Set-Location ..
 python -m uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8013
 ```
 
-Abrir http://127.0.0.1:8013. setup_local.py genera `.env` solo si no existe. Consultar la contraseña local dentro de ese archivo privado. No copiarla a documentación ni publicar el archivo. Se incluyen pesos entrenados, por lo que entrenar otra vez es opcional para ejecutar, pero necesario para reproducir el experimento.
+Abrir http://127.0.0.1:8013. La mesa crea una sesión invitada automáticamente y no solicita credenciales. setup_local.py genera `.env` solo si no existe; sus secretos de servidor no se publican. Se incluyen pesos entrenados, por lo que entrenar otra vez es opcional para ejecutar, pero necesario para reproducir el experimento.
 
 El modo local usa SQLite, inferencia local y procesamiento local de eventos, identificados en la interfaz. **Producción exige PostgreSQL, RabbitMQ y SageMaker** y rechaza sustituciones. Docker Compose corresponde a producción AWS y necesita un `.env` privado generado por el bootstrap, perfil IAM y acceso al endpoint.
 
@@ -77,7 +77,8 @@ Cada clase canónica tiene el mismo peso. Las métricas no reflejan las frecuenc
 
 | Operación | Función |
 |---|---|
-| POST /v1/auth/token | Formulario OAuth2 y JWT de 30 minutos |
+| POST /v1/demo/session | Prepara o renueva sesión invitada mediante cookie HttpOnly |
+| POST /v1/auth/token | OAuth2 opcional para clientes REST y pruebas con cuentas |
 | GET /v1/catalog | Juego, escenarios y acciones admitidas |
 | POST /v1/analyses | Inferencia, persistencia y evento |
 | GET /v1/analyses/{id} | Análisis autorizado por usuario |
@@ -87,9 +88,11 @@ Cada clase canónica tiene el mismo peso. Las métricas no reflejan las frecuenc
 | GET /health/ready | PostgreSQL, RabbitMQ y SageMaker |
 | GET /docs y /openapi.json | Contrato Swagger/OpenAPI |
 
-Contraseñas Argon2, JWT con emisor/audiencia, 120 solicitudes/minuto/usuario y límite de login por IP. Nginx usa TLS público, admite TLS 1.2/1.3, redirige HTTP y limita cuerpos a 32 KiB. EC2 exige IMDSv2. PostgreSQL y RabbitMQ permanecen en red Docker privada sin publicar puertos. El salto interno de la EC2 no usa TLS. El rol de Academy es más amplio que un rol mínimo de producción; no se modificaron sus permisos.
+La interfaz solicita una sesión invitada al abrirse. El servidor entrega un JWT de 30 minutos en cookie HttpOnly, Secure en AWS y SameSite=Strict. No expone tokens a JavaScript y separa el historial por visitante. Recargar conserva la sesión vigente; borrar cookies o dejarla vencer crea otro visitante. Es una demo pública y no verifica la identidad de una persona. Las escrituras con cookie rechazan origen cruzado. La API también conserva OAuth2/Argon2 para clientes REST con cuenta. Cada sesión mantiene 120 solicitudes/minuto y la creación de sesiones se limita por IP.
 
-No hay registro público de usuarios ni fallback JSON si SageMaker falla: se responde 503. `.env`, claves, runtime y archivos privados quedan fuera de GitHub. No activar logs de cuerpos, tokens ni contraseñas.
+Nginx usa TLS público, admite TLS 1.2/1.3, redirige HTTP y limita cuerpos a 32 KiB. EC2 exige IMDSv2. PostgreSQL y RabbitMQ permanecen en red Docker privada sin publicar puertos. El salto interno de la EC2 no usa TLS. El rol de Academy es más amplio que un rol mínimo de producción; no se modificaron sus permisos.
+
+La sesión invitada solo accede a sus propios ejercicios y no permite leer análisis de otras cuentas. No hay fallback JSON si SageMaker falla: se responde 503. `.env`, claves, runtime y archivos privados quedan fuera de GitHub. No activar logs de cuerpos, tokens, cookies ni contraseñas.
 
 ## Pruebas y evidencias
 
@@ -99,7 +102,7 @@ python -m pytest -q --junitxml=artifacts/tests-local.xml
 python scripts/benchmark.py
 ```
 
-Desactivar plugins automáticos impide que Locust modifique threading de TestClient. Se ejecutan las 26 pruebas: rangos, particiones, reglas, auth, aislamiento, errores de proveedor, límites, outbox, idempotencia y contratos.
+Desactivar plugins automáticos impide que Locust modifique threading de TestClient. Se ejecutan 34 pruebas: rangos, particiones, reglas, auth, aislamiento, errores de proveedor, límites, outbox, idempotencia y contratos, además de apertura invitada, recarga, cookies manipuladas, origen cruzado y readiness durante escalado con capacidad activa.
 
 En la **instancia EP3**, dentro de `/opt/ep3-preflop/source`:
 
@@ -109,7 +112,11 @@ sudo bash scripts/run_load.sh
 sudo /opt/ep3-preflop/tools/bin/python scripts/collect_cloud.py
 ```
 
-`smoke_cloud.py` usa credenciales dentro del contenedor sin imprimirlas. Confirmó 22/22 controles reales. Locust crea cinco cuentas sintéticas, conserva límites de seguridad y ejecuta cinco usuarios durante cinco minutos. Resultado: 1.464 solicitudes, cero errores, 4,888 solicitudes/s, p50 20 ms, p95 35 ms, p99 110 ms. La prueba sale de EC2 a localhost:8000 y sí incluye SageMaker y PostgreSQL, pero **excluye Internet, TLS/Nginx y navegador**. Las cifras proceden de `artifacts/load-cloud_stats.csv`.
+`smoke_cloud.py` recorre HTTPS y abre una sesión invitada sin contraseña. Aprobó 28/28 controles de cookie, aislamiento, SageMaker y RabbitMQ. La carga actual usa cinco sesiones invitadas durante cinco minutos: **1.461 solicitudes, cero errores, 4,897 solicitudes/s y p50/p95/p99 de 21/30/54 ms**. El generador utiliza la URL HTTPS publicada desde EC2 e incluye Nginx/TLS, API, SageMaker y PostgreSQL. **No mide la red de un alumno remoto ni el renderizado del navegador.** `artifacts/load-cloud_stats.csv` conserva las cifras y `cloud-metrics.json` identifica su perfil y fecha. El CSV de Locust puede cerrar ligeramente antes del resumen de consola; el informe usa el CSV.
+
+La recuperación final aprobó 28/28 controles tras recrear los contenedores. Se conserva una corrida previa de 27/28 en `recovery-before-readiness-fix.json`: falló solo readiness. Se corrigió para aceptar Updating si el endpoint conserva capacidad activa. No se modificó la ruta de inferencia usada durante la carga.
+
+La exportación pública de `cloud-metrics.json` conserva métricas, tiempos, capacidad y resultados de carga. Omite identificadores de cuenta, roles, ARN, imágenes ECR y recursos. El archivo de trabajo local mantiene el detalle original para revisión privada. `scripts/export_source.py` aplica esta separación antes de publicar o empaquetar el código.
 
 `artifacts/optimization-local.json` compara 100 inferencias con carga por solicitud y 100 con modelo reutilizado: 1,348 ms frente a 0,086 ms de media. Es un microbenchmark CPU local, no una reducción de latencia cloud demostrada. CloudWatch y el historial de escalado están en `artifacts/cloud-metrics.json`.
 

@@ -1,293 +1,396 @@
 {
-  "collected_at": "2026-11-20T22:01:29.106645+00:00",
+  "collected_at": "2026-11-21T02:43:21.807194+00:00",
   "region": "us-east-1",
-  "endpoint": "ep3-preflop",
   "status": "InService",
   "created_at": "2026-11-20T21:33:22.781000+00:00",
-  "variants": [
-    {
-      "VariantName": "main",
-      "DeployedImages": [
-        {
-          "SpecifiedImage": "790823822731.dkr.ecr.us-east-1.amazonaws.com/ep3-preflop:1",
-          "ResolvedImage": "790823822731.dkr.ecr.us-east-1.amazonaws.com/ep3-preflop@sha256:f88f26170e17f54e90701e3462ccd5572447b51bfd28c95051b7577337d8f64a",
-          "ResolutionTime": "2026-11-20 21:55:50.168000+00:00"
-        }
-      ],
-      "CurrentWeight": 1.0,
-      "DesiredWeight": 1.0,
-      "CurrentInstanceCount": 2,
-      "DesiredInstanceCount": 2
-    }
-  ],
   "metrics": {
     "Invocations": [
       {
-        "Timestamp": "2026-11-20 21:36:00+00:00",
+        "Timestamp": "2026-11-21 01:58:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:37:00+00:00",
+        "Timestamp": "2026-11-21 01:59:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:38:00+00:00",
+        "Timestamp": "2026-11-21 02:00:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:39:00+00:00",
+        "Timestamp": "2026-11-21 02:01:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:40:00+00:00",
+        "Timestamp": "2026-11-21 02:02:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:41:00+00:00",
+        "Timestamp": "2026-11-21 02:03:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:42:00+00:00",
+        "Timestamp": "2026-11-21 02:04:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:43:00+00:00",
+        "Timestamp": "2026-11-21 02:05:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:44:00+00:00",
+        "Timestamp": "2026-11-21 02:06:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:07:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:08:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:09:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:10:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:11:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:12:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:13:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:14:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:15:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:16:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:17:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:18:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:19:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:20:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:21:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:22:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:23:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:24:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:25:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:26:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:27:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:28:00+00:00",
         "Sum": 9.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:46:00+00:00",
+        "Timestamp": "2026-11-21 02:30:00+00:00",
+        "Sum": 162.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:31:00+00:00",
+        "Sum": 237.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:32:00+00:00",
+        "Sum": 231.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:33:00+00:00",
+        "Sum": 236.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:34:00+00:00",
+        "Sum": 260.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:35:00+00:00",
+        "Sum": 83.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:36:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:47:00+00:00",
+        "Timestamp": "2026-11-21 02:37:00+00:00",
+        "Sum": 9.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:38:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:48:00+00:00",
+        "Timestamp": "2026-11-21 02:39:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:49:00+00:00",
+        "Timestamp": "2026-11-21 02:40:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:50:00+00:00",
-        "Sum": 115.0,
-        "Unit": "None"
-      },
-      {
-        "Timestamp": "2026-11-20 21:51:00+00:00",
-        "Sum": 233.0,
-        "Unit": "None"
-      },
-      {
-        "Timestamp": "2026-11-20 21:52:00+00:00",
-        "Sum": 234.0,
-        "Unit": "None"
-      },
-      {
-        "Timestamp": "2026-11-20 21:53:00+00:00",
-        "Sum": 249.0,
-        "Unit": "None"
-      },
-      {
-        "Timestamp": "2026-11-20 21:54:00+00:00",
-        "Sum": 258.0,
-        "Unit": "None"
-      },
-      {
-        "Timestamp": "2026-11-20 21:55:00+00:00",
-        "Sum": 125.0,
-        "Unit": "None"
-      },
-      {
-        "Timestamp": "2026-11-20 21:56:00+00:00",
+        "Timestamp": "2026-11-21 02:41:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:57:00+00:00",
-        "Sum": 0.0,
-        "Unit": "None"
-      },
-      {
-        "Timestamp": "2026-11-20 21:58:00+00:00",
-        "Sum": 0.0,
-        "Unit": "None"
-      },
-      {
-        "Timestamp": "2026-11-20 21:59:00+00:00",
-        "Sum": 0.0,
-        "Unit": "None"
-      },
-      {
-        "Timestamp": "2026-11-20 22:00:00+00:00",
+        "Timestamp": "2026-11-21 02:42:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       }
     ],
     "Invocation4XXErrors": [
       {
-        "Timestamp": "2026-11-20 21:44:00+00:00",
+        "Timestamp": "2026-11-21 02:28:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:50:00+00:00",
+        "Timestamp": "2026-11-21 02:30:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:51:00+00:00",
+        "Timestamp": "2026-11-21 02:31:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:52:00+00:00",
+        "Timestamp": "2026-11-21 02:32:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:53:00+00:00",
+        "Timestamp": "2026-11-21 02:33:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:54:00+00:00",
+        "Timestamp": "2026-11-21 02:34:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:55:00+00:00",
+        "Timestamp": "2026-11-21 02:35:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:37:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       }
     ],
     "Invocation5XXErrors": [
       {
-        "Timestamp": "2026-11-20 21:44:00+00:00",
+        "Timestamp": "2026-11-21 02:28:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:50:00+00:00",
+        "Timestamp": "2026-11-21 02:30:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:51:00+00:00",
+        "Timestamp": "2026-11-21 02:31:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:52:00+00:00",
+        "Timestamp": "2026-11-21 02:32:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:53:00+00:00",
+        "Timestamp": "2026-11-21 02:33:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:54:00+00:00",
+        "Timestamp": "2026-11-21 02:34:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       },
       {
-        "Timestamp": "2026-11-20 21:55:00+00:00",
+        "Timestamp": "2026-11-21 02:35:00+00:00",
+        "Sum": 0.0,
+        "Unit": "None"
+      },
+      {
+        "Timestamp": "2026-11-21 02:37:00+00:00",
         "Sum": 0.0,
         "Unit": "None"
       }
     ],
     "ModelLatency": [
       {
-        "Timestamp": "2026-11-20 21:44:00+00:00",
-        "Average": 4003.4444444444443,
+        "Timestamp": "2026-11-21 02:28:00+00:00",
+        "Average": 2625.4444444444443,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:50:00+00:00",
-        "Average": 3033.7478260869566,
+        "Timestamp": "2026-11-21 02:30:00+00:00",
+        "Average": 2481.043209876543,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:51:00+00:00",
-        "Average": 2795.68669527897,
+        "Timestamp": "2026-11-21 02:31:00+00:00",
+        "Average": 2244.493670886076,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:52:00+00:00",
-        "Average": 2452.5555555555557,
+        "Timestamp": "2026-11-21 02:32:00+00:00",
+        "Average": 2169.7965367965367,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:53:00+00:00",
-        "Average": 2320.1887550200804,
+        "Timestamp": "2026-11-21 02:33:00+00:00",
+        "Average": 2121.0889830508477,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:54:00+00:00",
-        "Average": 2231.8062015503874,
+        "Timestamp": "2026-11-21 02:34:00+00:00",
+        "Average": 2205.3230769230768,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:55:00+00:00",
-        "Average": 2219.224,
+        "Timestamp": "2026-11-21 02:35:00+00:00",
+        "Average": 2085.6746987951806,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-21 02:37:00+00:00",
+        "Average": 2490.6666666666665,
         "Unit": "Microseconds"
       }
     ],
     "OverheadLatency": [
       {
-        "Timestamp": "2026-11-20 21:44:00+00:00",
-        "Average": 14918.0,
+        "Timestamp": "2026-11-21 02:28:00+00:00",
+        "Average": 8940.555555555555,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:50:00+00:00",
-        "Average": 5994.8,
+        "Timestamp": "2026-11-21 02:30:00+00:00",
+        "Average": 4606.481481481482,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:51:00+00:00",
-        "Average": 4574.442060085837,
+        "Timestamp": "2026-11-21 02:31:00+00:00",
+        "Average": 3750.3586497890296,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:52:00+00:00",
-        "Average": 4137.363247863248,
+        "Timestamp": "2026-11-21 02:32:00+00:00",
+        "Average": 3719.753246753247,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:53:00+00:00",
-        "Average": 3927.0321285140562,
+        "Timestamp": "2026-11-21 02:33:00+00:00",
+        "Average": 3553.64406779661,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:54:00+00:00",
-        "Average": 3988.220930232558,
+        "Timestamp": "2026-11-21 02:34:00+00:00",
+        "Average": 3794.6115384615387,
         "Unit": "Microseconds"
       },
       {
-        "Timestamp": "2026-11-20 21:55:00+00:00",
-        "Average": 3396.024,
+        "Timestamp": "2026-11-21 02:35:00+00:00",
+        "Average": 3457.5421686746986,
+        "Unit": "Microseconds"
+      },
+      {
+        "Timestamp": "2026-11-21 02:37:00+00:00",
+        "Average": 7157.111111111111,
         "Unit": "Microseconds"
       }
     ]
@@ -296,170 +399,149 @@
     {
       "Type": "POST",
       "Name": "/v1/analyses",
-      "Request Count": "1213",
+      "Request Count": "1197",
       "Failure Count": "0",
       "Median Response Time": "21",
-      "Average Response Time": "24.531976767520522",
-      "Min Response Time": "17.94089600002735",
-      "Max Response Time": "424.3675059999532",
-      "Average Content Size": "952.2877164056059",
-      "Requests/s": "4.050156086725373",
+      "Average Response Time": "23.087874266499238",
+      "Min Response Time": "18.8658409999789",
+      "Max Response Time": "92.41966700005833",
+      "Average Content Size": "952.0701754385965",
+      "Requests/s": "4.012428772728795",
       "Failures/s": "0.0",
       "50%": "21",
       "66%": "22",
       "75%": "23",
       "80%": "24",
       "90%": "27",
-      "95%": "35",
-      "98%": "65",
-      "99%": "97",
-      "99.9%": "400",
-      "99.99%": "420",
-      "100%": "420"
-    },
-    {
-      "Type": "POST",
-      "Name": "/v1/auth/token",
-      "Request Count": "5",
-      "Failure Count": "0",
-      "Median Response Time": "160",
-      "Average Response Time": "163.305075199969",
-      "Min Response Time": "151.9195559999389",
-      "Max Response Time": "177.22623000008753",
-      "Average Content Size": "238.0",
-      "Requests/s": "0.016694790134894364",
-      "Failures/s": "0.0",
-      "50%": "160",
-      "66%": "170",
-      "75%": "170",
-      "80%": "180",
-      "90%": "180",
-      "95%": "180",
-      "98%": "180",
-      "99%": "180",
-      "99.9%": "180",
-      "99.99%": "180",
-      "100%": "180"
+      "95%": "30",
+      "98%": "43",
+      "99%": "59",
+      "99.9%": "90",
+      "99.99%": "92",
+      "100%": "92"
     },
     {
       "Type": "GET",
       "Name": "/v1/dashboard",
-      "Request Count": "246",
+      "Request Count": "259",
       "Failure Count": "0",
-      "Median Response Time": "15",
-      "Average Response Time": "16.99080341057186",
-      "Min Response Time": "9.70566199998757",
-      "Max Response Time": "108.58034400007455",
-      "Average Content Size": "19416.963414634145",
-      "Requests/s": "0.8213836746368027",
+      "Median Response Time": "16",
+      "Average Response Time": "17.6381107567559",
+      "Min Response Time": "12.235091999968972",
+      "Max Response Time": "69.80058600015582",
+      "Average Content Size": "19781.675675675677",
+      "Requests/s": "0.8681863426372245",
       "Failures/s": "0.0",
-      "50%": "15",
-      "66%": "15",
-      "75%": "16",
-      "80%": "18",
+      "50%": "16",
+      "66%": "16",
+      "75%": "17",
+      "80%": "20",
       "90%": "22",
-      "95%": "26",
-      "98%": "42",
-      "99%": "52",
-      "99.9%": "110",
-      "99.99%": "110",
-      "100%": "110"
+      "95%": "27",
+      "98%": "30",
+      "99%": "33",
+      "99.9%": "70",
+      "99.99%": "70",
+      "100%": "70"
+    },
+    {
+      "Type": "POST",
+      "Name": "/v1/demo/session",
+      "Request Count": "5",
+      "Failure Count": "0",
+      "Median Response Time": "13",
+      "Average Response Time": "18.00436799999261",
+      "Min Response Time": "12.821136999946248",
+      "Max Response Time": "37.29351599997699",
+      "Average Content Size": "42.0",
+      "Requests/s": "0.016760354104965725",
+      "Failures/s": "0.0",
+      "50%": "13",
+      "66%": "13",
+      "75%": "13",
+      "80%": "37",
+      "90%": "37",
+      "95%": "37",
+      "98%": "37",
+      "99%": "37",
+      "99.9%": "37",
+      "99.99%": "37",
+      "100%": "37"
     },
     {
       "Type": "",
       "Name": "Aggregated",
-      "Request Count": "1464",
+      "Request Count": "1461",
       "Failure Count": "0",
-      "Median Response Time": "20",
-      "Average Response Time": "23.738764230876335",
-      "Min Response Time": "9.70566199998757",
-      "Max Response Time": "424.3675059999532",
-      "Average Content Size": "4052.51912568306",
-      "Requests/s": "4.88823455149707",
+      "Median Response Time": "21",
+      "Average Response Time": "22.10436551882229",
+      "Min Response Time": "12.235091999968972",
+      "Max Response Time": "92.41966700005833",
+      "Average Content Size": "4286.989733059549",
+      "Requests/s": "4.897375469470985",
       "Failures/s": "0.0",
-      "50%": "20",
-      "66%": "21",
+      "50%": "21",
+      "66%": "22",
       "75%": "22",
-      "80%": "23",
+      "80%": "24",
       "90%": "27",
-      "95%": "35",
-      "98%": "67",
-      "99%": "110",
-      "99.9%": "400",
-      "99.99%": "420",
-      "100%": "420"
+      "95%": "30",
+      "98%": "39",
+      "99%": "54",
+      "99.9%": "90",
+      "99.99%": "92",
+      "100%": "92"
+    }
+  ],
+  "load_profile": {
+    "access_flow": "automatic_guest",
+    "users": 5,
+    "configured_duration_seconds": 300,
+    "csv_modified_at": "2026-11-21T02:35:19.557285+00:00"
+  },
+  "variants": [
+    {
+      "CurrentInstanceCount": 2,
+      "DesiredInstanceCount": 2,
+      "CurrentWeight": 1.0,
+      "DesiredWeight": 1.0
     }
   ],
   "scalable_targets": [
     {
-      "ServiceNamespace": "sagemaker",
-      "ResourceId": "endpoint/ep3-preflop/variant/main",
-      "ScalableDimension": "sagemaker:variant:DesiredInstanceCount",
       "MinCapacity": 1,
-      "MaxCapacity": 2,
-      "RoleARN": "arn:aws:iam::790823822731:role/aws-service-role/sagemaker.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_SageMakerEndpoint",
-      "CreationTime": "2026-11-20 21:35:54.945000+00:00",
-      "SuspendedState": {
-        "DynamicScalingInSuspended": false,
-        "DynamicScalingOutSuspended": false,
-        "ScheduledScalingSuspended": false
-      },
-      "ScalableTargetARN": "arn:aws:application-autoscaling:us-east-1:790823822731:scalable-target/056m5906c58ec24d4833b3569acddd228eab"
+      "MaxCapacity": 2
     }
   ],
   "scaling_activities": [
     {
-      "ActivityId": "c96c75b1-ef64-4530-a8b2-49e8416159db",
-      "ServiceNamespace": "sagemaker",
-      "ResourceId": "endpoint/ep3-preflop/variant/main",
-      "ScalableDimension": "sagemaker:variant:DesiredInstanceCount",
-      "Description": "Setting desired instance count to 2.",
-      "Cause": "monitor alarm TargetTracking-endpoint/ep3-preflop/variant/main-AlarmHigh-ac9ac3ed-dbc1-4e1c-a8cd-fa69abb470eb in state ALARM triggered policy ep3-preflop",
-      "StartTime": "2026-11-20 21:55:48.985000+00:00",
-      "EndTime": "2026-11-20 21:58:31.176000+00:00",
       "StatusCode": "Successful",
-      "StatusMessage": "Successfully set desired instance count to 2. Change successfully fulfilled by sagemaker."
-    }
-  ],
-  "scaling_policies": [
+      "Description": "Setting desired instance count to 2.",
+      "StartTime": "2026-11-21 02:35:48.973000+00:00",
+      "EndTime": "2026-11-21 02:38:02.906000+00:00"
+    },
     {
-      "PolicyARN": "arn:aws:autoscaling:us-east-1:790823822731:scalingPolicy:5906c58e-c24d-4833-b356-9acddd228eab:resource/sagemaker/endpoint/ep3-preflop/variant/main:policyName/ep3-preflop",
-      "PolicyName": "ep3-preflop",
-      "ServiceNamespace": "sagemaker",
-      "ResourceId": "endpoint/ep3-preflop/variant/main",
-      "ScalableDimension": "sagemaker:variant:DesiredInstanceCount",
-      "PolicyType": "TargetTrackingScaling",
-      "TargetTrackingScalingPolicyConfiguration": {
-        "TargetValue": 60.0,
-        "PredefinedMetricSpecification": {
-          "PredefinedMetricType": "SageMakerVariantInvocationsPerInstance"
-        },
-        "ScaleOutCooldown": 60,
-        "ScaleInCooldown": 60
-      },
-      "Alarms": [
-        {
-          "AlarmName": "TargetTracking-endpoint/ep3-preflop/variant/main-AlarmHigh-ac9ac3ed-dbc1-4e1c-a8cd-fa69abb470eb",
-          "AlarmARN": "arn:aws:cloudwatch:us-east-1:790823822731:alarm:TargetTracking-endpoint/ep3-preflop/variant/main-AlarmHigh-ac9ac3ed-dbc1-4e1c-a8cd-fa69abb470eb"
-        },
-        {
-          "AlarmName": "TargetTracking-endpoint/ep3-preflop/variant/main-AlarmLow-915b5e68-9e88-42ca-a753-a32252b80a9c",
-          "AlarmARN": "arn:aws:cloudwatch:us-east-1:790823822731:alarm:TargetTracking-endpoint/ep3-preflop/variant/main-AlarmLow-915b5e68-9e88-42ca-a753-a32252b80a9c"
-        }
-      ],
-      "CreationTime": "2026-11-20 21:35:54.991000+00:00"
+      "StatusCode": "Successful",
+      "Description": "Setting desired instance count to 1.",
+      "StartTime": "2026-11-20 22:13:30.758000+00:00",
+      "EndTime": "2026-11-20 22:14:06.659000+00:00"
+    },
+    {
+      "StatusCode": "Successful",
+      "Description": "Setting desired instance count to 2.",
+      "StartTime": "2026-11-20 21:55:48.985000+00:00",
+      "EndTime": "2026-11-20 21:58:31.176000+00:00"
     }
   ],
   "log_groups": [
     {
-      "logGroupName": "/ep3-preflop/app",
       "storedBytes": 0,
       "retentionInDays": 7
     },
     {
-      "logGroupName": "/aws/sagemaker/Endpoints/ep3-preflop",
       "storedBytes": 0,
       "retentionInDays": 7
     }
-  ]
+  ],
+  "publication_note": "Resumen de metricas. Se omiten cuenta AWS, roles, ARN, imagen ECR e identificadores de recursos."
 }

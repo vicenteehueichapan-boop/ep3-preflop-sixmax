@@ -1,6 +1,8 @@
 {
-  "base_url": "http://127.0.0.1:8000",
+  "base_url": "https://54.162.150.183",
   "environment": "AWS real",
+  "api_version": "1.1.1",
+  "access_flow": "automatic_guest",
   "tests": [
     {
       "case": "health_live",
@@ -27,7 +29,22 @@
       "details": null
     },
     {
-      "case": "login",
+      "case": "guest_session_without_password",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "secure_httponly_cookie",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "no_token_in_response",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "guest_session_reused",
       "passed": true,
       "details": null
     },
@@ -57,7 +74,7 @@
       "details": {
         "action": "fold",
         "version": "preflop-5b0e112653",
-        "inference_ms": 96.424
+        "inference_ms": 63.433
       }
     },
     {
@@ -76,7 +93,7 @@
       "details": {
         "action": "raise",
         "version": "preflop-5b0e112653",
-        "inference_ms": 19.415
+        "inference_ms": 68.352
       }
     },
     {
@@ -95,7 +112,7 @@
       "details": {
         "action": "call",
         "version": "preflop-5b0e112653",
-        "inference_ms": 14.437
+        "inference_ms": 15.398
       }
     },
     {
@@ -110,6 +127,11 @@
     },
     {
       "case": "out_of_turn",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "cross_origin_rejected",
       "passed": true,
       "details": null
     },
@@ -130,8 +152,18 @@
       "case": "openapi",
       "passed": true,
       "details": null
+    },
+    {
+      "case": "guest_history_isolated",
+      "passed": true,
+      "details": null
+    },
+    {
+      "case": "guest_cannot_read_other_analysis",
+      "passed": true,
+      "details": null
     }
   ],
-  "passed": 22,
-  "total": 22
+  "passed": 28,
+  "total": 28
 }

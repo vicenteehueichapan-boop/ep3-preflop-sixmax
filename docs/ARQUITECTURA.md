@@ -27,6 +27,8 @@ sequenceDiagram
  participant PUB as Publicador
  participant MQ as RabbitMQ
  participant W as Worker
+ UI->>API: POST /v1/demo/session al abrir la mesa
+ API-->>UI: Cookie JWT invitada HttpOnly y Secure
  UI->>API: POST /v1/analyses con JWT
  API->>API: Autorizar y validar cartas y secuencia
  API->>ML: InvokeEndpoint firmado con IAM

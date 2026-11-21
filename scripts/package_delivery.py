@@ -3,6 +3,7 @@ import hashlib
 import json
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 
@@ -12,7 +13,13 @@ entries=json.loads(subprocess.check_output([sys.executable,str(root/'scripts/exp
 pdfs=['EP3_EquipoIndividual_Hueichapan.pdf','EP3_Presentacion_EquipoIndividual.pdf']
 for name in pdfs:
     if not (out/name).is_file():raise FileNotFoundError(name)
-guide='''ENTREGA EP3 PREFLOP SIX MAX
+smoke=json.loads((root/'artifacts/cloud-smoke.json').read_text())
+metrics=json.loads((root/'artifacts/cloud-metrics.json').read_text())
+load=next(row for row in metrics['load'] if row['Name']=='Aggregated')
+local_tests=int(ET.parse(root/'artifacts/tests-local.xml').getroot().find('testsuite').get('tests'))
+if smoke.get('access_flow')!='automatic_guest' or metrics.get('load_profile',{}).get('access_flow')!='automatic_guest':
+    raise RuntimeError('Actualizar primero pruebas y carga de la version invitada real.')
+guide=f'''ENTREGA EP3 PREFLOP SIX MAX
 
 1. EP3_EquipoIndividual_Hueichapan.pdf: informe técnico de 10 páginas.
 2. EP3_Presentacion_EquipoIndividual.pdf: presentación de 6 láminas.
@@ -28,11 +35,14 @@ GitHub: https://github.com/vicenteehueichapan-boop/ep3-preflop-sixmax
 
 La URL exige laboratorio activo, EC2 iniciada y endpoint SageMaker disponible.
 El endpoint ML es privado por IAM y no admite una llamada anónima desde navegador.
-Las credenciales de acceso se entregan por separado en privado. Este ZIP no las contiene.
+La mesa abre directamente sin login, usuario ni contraseña. Cada navegador obtiene una
+sesión invitada aislada. Postman necesita ejecutar Preparar mesa y conservar su cookie jar.
 No se incluyeron .env, llaves, entornos virtuales, node_modules, datos runtime ni proyectos ajenos.
 
-Métricas: 26 tests locales, 22 controles cloud; Locust 1464 solicitudes, 0 fallos,
-4,89 solicitudes/s y p50/p95/p99 20/35/110 ms desde EC2. Modelo accuracy 94,87 %, macroF1 0,898.
+Métricas: {local_tests} tests locales, {smoke['passed']} controles cloud aprobados; Locust
+{load['Request Count']} solicitudes, {load['Failure Count']} fallos, {float(load['Requests/s']):.2f} solicitudes/s
+y p50/p95/p99 {load['50%']}/{load['95%']}/{load['99%']} ms por HTTPS desde EC2.
+Modelo accuracy 94,87 %, macroF1 0,898.
 Política propia didáctica. No es GTO ni una garantía de ganancia.
 
 SageMaker cobra mientras existe el endpoint, aunque no haya consultas. Mantenerlo activo todo
@@ -52,7 +62,7 @@ with ZipFile(zip_path,'w',ZIP_DEFLATED) as z:
         z.writestr('codigo/'+name,entry['content'].encode('utf-8'))
     for name in pdfs+['EP3_EquipoIndividual_Hueichapan.docx','LEEME_ENTREGA.txt']:
         z.write(out/name,name)
-    for name in ['aws-login.png','aws-sagemaker.png','mesa-local.png']:
+    for name in ['aws-mesa.png','aws-mesa-inicio.png','aws-historial.png','aws-sagemaker.png']:
         path=root/'output/playwright'/name
         if path.is_file():z.write(path,'codigo/output/playwright/'+name)
 report={'zip':zip_path.name,'sha256':hashlib.sha256(zip_path.read_bytes()).hexdigest(),'source_files':len(entries),'private_files_included':False}
