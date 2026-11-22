@@ -1,4 +1,4 @@
-<# Demostración REST con curl.exe real. No requiere contraseña ni muestra la cookie. #>
+﻿<# Demostración REST con curl.exe real. No requiere contraseña ni muestra la cookie. #>
 param([uri]$BaseUrl='https://54.162.150.183')
 $ErrorActionPreference='Stop'
 if ($BaseUrl.Scheme -ne 'https') {throw 'La demostración remota requiere HTTPS.'}

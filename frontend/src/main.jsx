@@ -24,8 +24,10 @@ function App(){
  async function api(path,options={},retry=true){
    const res=await fetch(path,{...options,credentials:'same-origin',headers:{'Content-Type':'application/json',...options.headers}});
    if(res.status===401&&retry){await startSession();return api(path,options,false);}
-   const data=await res.json();
-   if(!res.ok)throw new Error(typeof data.detail==='string'?data.detail:'Revisa las cartas y la secuencia de acciones.');return data;
+   // Nginx devuelve HTML (502/504) si la API o SageMaker no están disponibles.
+   const data=await res.json().catch(()=>null);
+   if(!res.ok)throw new Error(typeof data?.detail==='string'?data.detail:res.status>=500?'El servicio no está disponible en este momento. Intenta nuevamente.':'Revisa las cartas y la secuencia de acciones.');
+   if(data===null)throw new Error('Respuesta inesperada del servidor.');return data;
  }
  async function refresh(){setDashboard(await api('/v1/dashboard'));}
  async function prepare(){

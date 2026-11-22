@@ -37,7 +37,7 @@ La mesa inicia una sesión invitada automáticamente, sin formulario de login. L
 | Resultados de 28 verificaciones AWS | `artifacts/cloud-smoke.json` |
 | Recuperación final y corrida previa documentada | `artifacts/recovery-check.json`, `artifacts/recovery-before-readiness-fix.json` |
 | Carga Locust: percentiles, throughput y errores | `artifacts/load-cloud_stats.csv`, `artifacts/load-cloud_failures.csv` |
-| Métricas CloudWatch y actividades de escalado | `artifacts/cloud-metrics.json` (resumen sin identificadores internos) |
+| Métricas CloudWatch y actividades de escalado | `artifacts/cloud-metrics.json` (resumen sin identificadores internos) y gráfico `output/playwright/aws-cloudwatch.png` |
 | Optimización local CPU | `artifacts/optimization-local.json` |
 | Arquitectura y secuencia editables | `docs/ARQUITECTURA.md` |
 | Solicitudes REST reproducibles | `docs/EP3_Postman.collection.json`, `scripts/demo_api.ps1` |
